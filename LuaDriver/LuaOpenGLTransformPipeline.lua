@@ -25,7 +25,7 @@ end
 
 
 function OpenGLTransformPipeline:getMVP()
-	return OpenGLMath.multiply44(self.modelView, self.projection)
+	return OpenGLMath.multiply44(self.projection, self.modelView)
 end
 
 

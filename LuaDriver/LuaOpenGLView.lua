@@ -102,7 +102,7 @@ function LDOpenGLView:drawRect(dirtyRect)
 	
 	NSOpenGL.clear("GL_COLOR_BUFFER_BIT", "GL_DEPTH_BUFFER_BIT", "GL_STENCIL_BUFFER_BIT")
 
-	local cameraMatrix = self.cameraFrame:getMatrix()
+	local cameraMatrix = self.cameraFrame:getCameraMatrix()
 	local objectMatrix = self.objectFrame:getMatrix()
 	local mvMatrix = OpenGLMath.multiply44(cameraMatrix, objectMatrix)
 

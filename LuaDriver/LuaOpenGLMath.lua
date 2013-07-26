@@ -19,9 +19,9 @@ end
 
 
 function OpenGLMath.translationMatrix(x, y, z)
-	return { 0, 0, 0, 0,
-			 0, 0, 0, 0,
-			 0, 0, 0, 0,
+	return { 1, 0, 0, 0,
+			 0, 1, 0, 0,
+			 0, 0, 1, 0,
 			 x, y, z, 1 }
 end
 
@@ -31,15 +31,15 @@ end
 function OpenGLMath.multiply44(m1, m2)
 	local p = {}
 
-	local function A(col, row)
+	local function A(row, col)
 		return m1[col * 4 + row + 1]
 	end
 
-	local function B(col, row)
+	local function B(row, col)
 		return m2[col * 4 + row + 1]
 	end
 
-	local function setP(col, row, v)
+	local function setP(row, col, v)
 		p[col * 4 + row + 1] = v
 	end
 
