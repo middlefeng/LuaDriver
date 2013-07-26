@@ -16,6 +16,8 @@
 struct lua_State;
 
 
+@class LDOpenGLView;
+
 
 
 @interface LDMainWindow : NSWindow
@@ -23,6 +25,7 @@ struct lua_State;
 
 
 @property int userDataRef;
+@property(assign) IBOutlet LDOpenGLView* openGLView;
 
 
 

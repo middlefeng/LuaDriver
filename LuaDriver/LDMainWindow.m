@@ -8,6 +8,7 @@
 
 #import "LDMainWindow.h"
 #import "LDUtilities.h"
+#import "LDOpenGLView.h"
 
 
 
@@ -114,6 +115,7 @@ static int ld_main_window_make_key_and_order_front(lua_State* L)
 	id sender = [LDUtilities userDataFromLuaTable:L atIndex:2];
 	
 	[window makeKeyAndOrderFront:sender];
+	[[window openGLView] becomeFirstResponder];
 	lua_pop(L, 2);
 	return 0;
 }

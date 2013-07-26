@@ -174,6 +174,25 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 
 
 
+- (BOOL)acceptsFirstResponder
+{
+	return YES;
+}
+
+
+
+
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+	char key = [[theEvent characters] characterAtIndex:0];
+	
+	NSLog(@"%c", key);
+}
+
+
+
+
 static int ld_opengl_view_super_draw_rect(lua_State* L)
 {
 	LDOpenGLView* openglView = [LDUtilities userDataFromLuaTable:L atIndex:1];
