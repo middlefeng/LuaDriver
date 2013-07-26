@@ -110,7 +110,28 @@ function LDOpenGLView:drawRect(dirtyRect)
 	local transformLocation = NSOpenGL.getUniformLocation(self.program, "mvpMatrix")
 	NSOpenGL.uniformMatrix(transformLocation, "GL_FALSE", transPipeline:getMVP())
 
+	local colorLocation = NSOpenGL.getUniformLocation(self.program, "vColor")
+	NSOpenGL.uniform(colorLocation, { 0, 1, 0, 1 })
+
 	self.torus:draw()
+
+	
+	NSOpenGL.polygonOffset(-1, -1)
+	NSOpenGL.enable("GL_LINE_SMOOTH")
+	NSOpenGL.enable("GL_BLEND")
+	NSOpenGL.blendFunc("GL_SRC_ALPHA", "GL_ONE_MINUS_SRC_ALPHA")
+    NSOpenGL.enable("GL_POLYGON_OFFSET_LINE")
+    NSOpenGL.polygonMode("GL_FRONT_AND_BACK", "GL_LINE")
+    NSOpenGL.lineWidth(2.5)
+    NSOpenGL.uniform(colorLocation, { 0, 0, 0, 1 } )
+
+    self.torus:draw()
+
+    NSOpenGL.polygonMode("GL_FRONT_AND_BACK", "GL_FILL");
+    NSOpenGL.disable("GL_POLYGON_OFFSET_LINE");
+    NSOpenGL.lineWidth(1);
+    NSOpenGL.disable("GL_BLEND");
+    NSOpenGL.disable("GL_LINE_SMOOTH");
 end
 
 

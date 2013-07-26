@@ -47,6 +47,7 @@ static int ld_opengl_compileShader(lua_State*);
 static int ld_opengl_attachShader(lua_State*);
 static int ld_opengl_getUniformLocation(lua_State*);
 static int ld_opengl_uniformMatrix(lua_State*);
+static int ld_opengl_uniform(lua_State*);
 
 static int ld_opengl_getError(lua_State*);
 static int ld_opengl_enable(lua_State*);
@@ -89,6 +90,7 @@ static const luaL_Reg LDOpenGLFuncs[] = {
 	{ "attachShader", ld_opengl_attachShader },
 	{ "getUniformLocation", ld_opengl_getUniformLocation },
 	{ "uniformMatrix", ld_opengl_uniformMatrix },
+	{ "uniform", ld_opengl_uniform },
 
 	{ "getError", ld_opengl_getError },
 	{ "enable", ld_opengl_enable },
@@ -606,16 +608,46 @@ static int ld_opengl_uniformMatrix(lua_State* L)
 
 
 
+static int ld_opengl_uniform(lua_State* L)
+{
+	GLint loc = (GLint)luaL_checkinteger(L, 1);
+	GLsizei count = lua_gettop(L) - 1;
+	
+	lua_len(L, 2);
+	unsigned int size = lua_tounsigned(L, -1);
+	lua_pop(L, 1);
+	
+	if (size == 4) {
+		GLfloat* value = malloc(size * count * sizeof(GLfloat));
+		for (size_t i = 0; i < count; ++i) {
+			for (size_t j = 0; j < 4; ++j) {
+				lua_rawgeti(L, (int)(i + 2), (int)(j + 1));
+				value[i * 4 + j] = luaL_checknumber(L, -1);
+				lua_pop(L, 1);
+			}
+		}
+		glUniform4fv(loc, count, value);
+		free(value);
+	}
+	
+	lua_pop(L, lua_gettop(L));
+	return 0;
+}
+
+
+
 
 static const char* sGLEnableNames[] = {
-	"GL_BLEND", "GL_DEPTH_TEST",
+	"GL_BLEND", "GL_DEPTH_TEST", "GL_LINE_SMOOTH",
+	"GL_POLYGON_OFFSET_LINE",
 	"GL_TEXTURE_1D", "GL_TEXTURE_2D", "GL_TEXTURE_3D",
 	"GL_TEXTURE_GEN_Q", "GL_TEXTURE_GEN_R", "GL_TEXTURE_GEN_S",
 	"GL_TEXTURE_GEN_T", 0
 };
 
 static const GLenum sGLEnables[] = {
-	GL_BLEND, GL_DEPTH_TEST,
+	GL_BLEND, GL_DEPTH_TEST, GL_LINE_SMOOTH,
+	GL_POLYGON_OFFSET_LINE,
 	GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_3D,
 	GL_TEXTURE_GEN_Q, GL_TEXTURE_GEN_R, GL_TEXTURE_GEN_S,
 	GL_TEXTURE_GEN_T, 0
