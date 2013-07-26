@@ -1,0 +1,564 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C1CB007179F677F00C9103C /* LuaOpenGLFrame.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */; };
+		2C1CB00E179F713E00C9103C /* LuaOpenGLMath.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */; };
+		2C20E85C178FCDDF00B53137 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C20E85B178FCDDF00B53137 /* Cocoa.framework */; };
+		2C20E866178FCDDF00B53137 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E864178FCDDF00B53137 /* InfoPlist.strings */; };
+		2C20E868178FCDDF00B53137 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20E867178FCDDF00B53137 /* main.m */; };
+		2C20E86C178FCDDF00B53137 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E86A178FCDDF00B53137 /* Credits.rtf */; };
+		2C20E86F178FCDDF00B53137 /* LDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20E86E178FCDDF00B53137 /* LDAppDelegate.m */; };
+		2C20E872178FCDE000B53137 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E870178FCDE000B53137 /* MainMenu.xib */; };
+		2C20E87A178FCE0D00B53137 /* LDMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20E879178FCE0D00B53137 /* LDMainWindow.m */; };
+		2C20E892178FE57500B53137 /* LuaMainWindow.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E891178FE57500B53137 /* LuaMainWindow.lua */; };
+		2C20E894178FE9A100B53137 /* LuaAppDelegate.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */; };
+		2C20E897178FEAD100B53137 /* LDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20E896178FEAD100B53137 /* LDUtilities.m */; };
+		2C4E2D6717A13338001641A7 /* LuaOpenGLFrustum.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */; };
+		2C5AB3B1179D2E6B004B8150 /* flat.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3A8179D2CDB004B8150 /* flat.vert */; };
+		2C5AB3B2179D2E6B004B8150 /* flat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3AF179D2CE7004B8150 /* flat.frag */; };
+		2C6CECA6179BB8C60084D4FD /* fragShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C6CEC9C179BB8A50084D4FD /* fragShader.frag */; };
+		2C6CECA7179BB8C60084D4FD /* vertexShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2C6CEC9D179BB8A50084D4FD /* vertexShader.vert */; };
+		2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6CECA9179CAF050084D4FD /* LDViewFuncs.m */; };
+		2C8489F2179982C30018C689 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8489EF179982B40018C689 /* liblua.a */; };
+		2C8489F51799831B0018C689 /* LDOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8489F41799831B0018C689 /* LDOpenGLView.m */; };
+		2C8489F7179985020018C689 /* LuaOpenGLView.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C8489F6179985020018C689 /* LuaOpenGLView.lua */; };
+		2C8489FC179988EB0018C689 /* LDOpenGL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8489FB179988EB0018C689 /* LDOpenGL.m */; };
+		2C8489FE17998B560018C689 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8489FD17998B560018C689 /* OpenGL.framework */; };
+		2CC69B9D1795167900737D7D /* LDScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC69B9C1795167900737D7D /* LDScreen.m */; };
+		2CC69BA81795577900737D7D /* LDFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC69BA71795577900737D7D /* LDFileManager.m */; };
+		2CCEDAC3179613A800B0D8E4 /* LDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEDAC2179613A800B0D8E4 /* LDTextView.m */; };
+		2CCEDACA17962A4500B0D8E4 /* LuaTextView.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2CCEDAC917962A4500B0D8E4 /* LuaTextView.lua */; };
+		2CCF144E17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2CCF144D17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua */; };
+		2CD73F68179A5DA10049642E /* LDBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73F67179A5DA10049642E /* LDBundle.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2C8489E8179982B40018C689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C8489E0179982B40018C689 /* lua.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2C3170E3157CE98000F12776;
+			remoteInfo = lua;
+		};
+		2C8489EA179982B40018C689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C8489E0179982B40018C689 /* lua.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2C57C91B163F923C00C9AA4A;
+			remoteInfo = luad;
+		};
+		2C8489EC179982B40018C689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C8489E0179982B40018C689 /* lua.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2C317193157CEEE000F12776;
+			remoteInfo = luac;
+		};
+		2C8489EE179982B40018C689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C8489E0179982B40018C689 /* lua.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2C317152157CECFD00F12776;
+			remoteInfo = liblua;
+		};
+		2C8489F0179982B40018C689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C8489E0179982B40018C689 /* lua.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2C57C8E0163F909000C9AA4A;
+			remoteInfo = libluad;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLFrame.lua; sourceTree = "<group>"; };
+		2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLMath.lua; sourceTree = "<group>"; };
+		2C20E858178FCDDF00B53137 /* LuaDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C20E85B178FCDDF00B53137 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		2C20E85E178FCDDF00B53137 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		2C20E85F178FCDDF00B53137 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2C20E860178FCDDF00B53137 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2C20E863178FCDDF00B53137 /* LuaDriver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LuaDriver-Info.plist"; sourceTree = "<group>"; };
+		2C20E865178FCDDF00B53137 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2C20E867178FCDDF00B53137 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2C20E869178FCDDF00B53137 /* LuaDriver-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LuaDriver-Prefix.pch"; sourceTree = "<group>"; };
+		2C20E86B178FCDDF00B53137 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2C20E86D178FCDDF00B53137 /* LDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDAppDelegate.h; sourceTree = "<group>"; };
+		2C20E86E178FCDDF00B53137 /* LDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LDAppDelegate.m; sourceTree = "<group>"; };
+		2C20E871178FCDE000B53137 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2C20E878178FCE0D00B53137 /* LDMainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDMainWindow.h; sourceTree = "<group>"; };
+		2C20E879178FCE0D00B53137 /* LDMainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDMainWindow.m; sourceTree = "<group>"; };
+		2C20E891178FE57500B53137 /* LuaMainWindow.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaMainWindow.lua; sourceTree = "<group>"; };
+		2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaAppDelegate.lua; sourceTree = "<group>"; };
+		2C20E895178FEAD100B53137 /* LDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUtilities.h; sourceTree = "<group>"; };
+		2C20E896178FEAD100B53137 /* LDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUtilities.m; sourceTree = "<group>"; };
+		2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLFrustum.lua; sourceTree = "<group>"; };
+		2C5AB3A8179D2CDB004B8150 /* flat.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flat.vert; sourceTree = "<group>"; };
+		2C5AB3AF179D2CE7004B8150 /* flat.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flat.frag; sourceTree = "<group>"; };
+		2C6CEC9C179BB8A50084D4FD /* fragShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fragShader.frag; sourceTree = "<group>"; };
+		2C6CEC9D179BB8A50084D4FD /* vertexShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = vertexShader.vert; sourceTree = "<group>"; };
+		2C6CECA8179CAF050084D4FD /* LDViewFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewFuncs.h; sourceTree = "<group>"; };
+		2C6CECA9179CAF050084D4FD /* LDViewFuncs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewFuncs.m; sourceTree = "<group>"; };
+		2C8489E0179982B40018C689 /* lua.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = lua.xcodeproj; path = "../lua-5.2.2/project/lua.xcodeproj"; sourceTree = "<group>"; };
+		2C8489F31799831B0018C689 /* LDOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDOpenGLView.h; sourceTree = "<group>"; };
+		2C8489F41799831B0018C689 /* LDOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDOpenGLView.m; sourceTree = "<group>"; };
+		2C8489F6179985020018C689 /* LuaOpenGLView.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLView.lua; sourceTree = "<group>"; };
+		2C8489FA179988EB0018C689 /* LDOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDOpenGL.h; sourceTree = "<group>"; };
+		2C8489FB179988EB0018C689 /* LDOpenGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDOpenGL.m; sourceTree = "<group>"; };
+		2C8489FD17998B560018C689 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		2CC69B9B1795167900737D7D /* LDScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDScreen.h; sourceTree = "<group>"; };
+		2CC69B9C1795167900737D7D /* LDScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDScreen.m; sourceTree = "<group>"; };
+		2CC69BA61795577900737D7D /* LDFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDFileManager.h; sourceTree = "<group>"; };
+		2CC69BA71795577900737D7D /* LDFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDFileManager.m; sourceTree = "<group>"; };
+		2CCEDAC1179613A800B0D8E4 /* LDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTextView.h; sourceTree = "<group>"; };
+		2CCEDAC2179613A800B0D8E4 /* LDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTextView.m; sourceTree = "<group>"; };
+		2CCEDAC917962A4500B0D8E4 /* LuaTextView.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaTextView.lua; sourceTree = "<group>"; };
+		2CCF144D17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLTransformPipeline.lua; sourceTree = "<group>"; };
+		2CD73F66179A5DA10049642E /* LDBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBundle.h; sourceTree = "<group>"; };
+		2CD73F67179A5DA10049642E /* LDBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBundle.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2C20E855178FCDDF00B53137 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C8489FE17998B560018C689 /* OpenGL.framework in Frameworks */,
+				2C8489F2179982C30018C689 /* liblua.a in Frameworks */,
+				2C20E85C178FCDDF00B53137 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C20E84F178FCDDF00B53137 = {
+			isa = PBXGroup;
+			children = (
+				2C20E861178FCDDF00B53137 /* LuaDriver */,
+				2C20E85A178FCDDF00B53137 /* Frameworks */,
+				2C20E859178FCDDF00B53137 /* Products */,
+				2C20E88E178FE08C00B53137 /* Subprojects */,
+			);
+			sourceTree = "<group>";
+		};
+		2C20E859178FCDDF00B53137 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E858178FCDDF00B53137 /* LuaDriver.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C20E85A178FCDDF00B53137 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E85B178FCDDF00B53137 /* Cocoa.framework */,
+				2C8489FD17998B560018C689 /* OpenGL.framework */,
+				2C20E85D178FCDDF00B53137 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C20E85D178FCDDF00B53137 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E85E178FCDDF00B53137 /* AppKit.framework */,
+				2C20E85F178FCDDF00B53137 /* CoreData.framework */,
+				2C20E860178FCDDF00B53137 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		2C20E861178FCDDF00B53137 /* LuaDriver */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E86D178FCDDF00B53137 /* LDAppDelegate.h */,
+				2C20E86E178FCDDF00B53137 /* LDAppDelegate.m */,
+				2C20E870178FCDE000B53137 /* MainMenu.xib */,
+				2C20E862178FCDDF00B53137 /* Supporting Files */,
+				2C20E88F178FE53700B53137 /* UI */,
+				2CC69BA31795167E00737D7D /* API Classes */,
+				2C20E890178FE54600B53137 /* Lua */,
+				2C6CECA5179BB8AD0084D4FD /* Shaders */,
+			);
+			path = LuaDriver;
+			sourceTree = "<group>";
+		};
+		2C20E862178FCDDF00B53137 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E863178FCDDF00B53137 /* LuaDriver-Info.plist */,
+				2C20E864178FCDDF00B53137 /* InfoPlist.strings */,
+				2C20E867178FCDDF00B53137 /* main.m */,
+				2C20E869178FCDDF00B53137 /* LuaDriver-Prefix.pch */,
+				2C20E86A178FCDDF00B53137 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2C20E88E178FE08C00B53137 /* Subprojects */ = {
+			isa = PBXGroup;
+			children = (
+				2C8489E0179982B40018C689 /* lua.xcodeproj */,
+			);
+			name = Subprojects;
+			sourceTree = "<group>";
+		};
+		2C20E88F178FE53700B53137 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E878178FCE0D00B53137 /* LDMainWindow.h */,
+				2C20E879178FCE0D00B53137 /* LDMainWindow.m */,
+				2C6CECA8179CAF050084D4FD /* LDViewFuncs.h */,
+				2C6CECA9179CAF050084D4FD /* LDViewFuncs.m */,
+				2CCEDAC1179613A800B0D8E4 /* LDTextView.h */,
+				2CCEDAC2179613A800B0D8E4 /* LDTextView.m */,
+				2C8489F31799831B0018C689 /* LDOpenGLView.h */,
+				2C8489F41799831B0018C689 /* LDOpenGLView.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		2C20E890178FE54600B53137 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				2C20E891178FE57500B53137 /* LuaMainWindow.lua */,
+				2CCEDAC917962A4500B0D8E4 /* LuaTextView.lua */,
+				2C8489F6179985020018C689 /* LuaOpenGLView.lua */,
+				2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */,
+				2CCF144717A0CECF00477587 /* Math */,
+			);
+			name = Lua;
+			sourceTree = "<group>";
+		};
+		2C6CECA5179BB8AD0084D4FD /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				2C6CEC9D179BB8A50084D4FD /* vertexShader.vert */,
+				2C6CEC9C179BB8A50084D4FD /* fragShader.frag */,
+				2C5AB3A8179D2CDB004B8150 /* flat.vert */,
+				2C5AB3AF179D2CE7004B8150 /* flat.frag */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		2C8489E1179982B40018C689 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C8489E9179982B40018C689 /* lua */,
+				2C8489EB179982B40018C689 /* luad */,
+				2C8489ED179982B40018C689 /* luac */,
+				2C8489EF179982B40018C689 /* liblua.a */,
+				2C8489F1179982B40018C689 /* libluad.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CC69BA31795167E00737D7D /* API Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2CC69B9B1795167900737D7D /* LDScreen.h */,
+				2CC69B9C1795167900737D7D /* LDScreen.m */,
+				2CC69BA61795577900737D7D /* LDFileManager.h */,
+				2CC69BA71795577900737D7D /* LDFileManager.m */,
+				2C8489FA179988EB0018C689 /* LDOpenGL.h */,
+				2C8489FB179988EB0018C689 /* LDOpenGL.m */,
+				2CD73F66179A5DA10049642E /* LDBundle.h */,
+				2CD73F67179A5DA10049642E /* LDBundle.m */,
+				2C20E895178FEAD100B53137 /* LDUtilities.h */,
+				2C20E896178FEAD100B53137 /* LDUtilities.m */,
+			);
+			name = "API Classes";
+			sourceTree = "<group>";
+		};
+		2CCF144717A0CECF00477587 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */,
+				2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */,
+				2CCF144D17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua */,
+				2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C20E857178FCDDF00B53137 /* LuaDriver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C20E875178FCDE000B53137 /* Build configuration list for PBXNativeTarget "LuaDriver" */;
+			buildPhases = (
+				2C20E854178FCDDF00B53137 /* Sources */,
+				2C20E855178FCDDF00B53137 /* Frameworks */,
+				2C20E856178FCDDF00B53137 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LuaDriver;
+			productName = LuaDriver;
+			productReference = 2C20E858178FCDDF00B53137 /* LuaDriver.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C20E850178FCDDF00B53137 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LD;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Dong;
+			};
+			buildConfigurationList = 2C20E853178FCDDF00B53137 /* Build configuration list for PBXProject "LuaDriver" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2C20E84F178FCDDF00B53137;
+			productRefGroup = 2C20E859178FCDDF00B53137 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2C8489E1179982B40018C689 /* Products */;
+					ProjectRef = 2C8489E0179982B40018C689 /* lua.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				2C20E857178FCDDF00B53137 /* LuaDriver */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2C8489E9179982B40018C689 /* lua */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = lua;
+			remoteRef = 2C8489E8179982B40018C689 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C8489EB179982B40018C689 /* luad */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = luad;
+			remoteRef = 2C8489EA179982B40018C689 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C8489ED179982B40018C689 /* luac */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = luac;
+			remoteRef = 2C8489EC179982B40018C689 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C8489EF179982B40018C689 /* liblua.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liblua.a;
+			remoteRef = 2C8489EE179982B40018C689 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2C8489F1179982B40018C689 /* libluad.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libluad.dylib;
+			remoteRef = 2C8489F0179982B40018C689 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C20E856178FCDDF00B53137 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C5AB3B1179D2E6B004B8150 /* flat.vert in Resources */,
+				2C5AB3B2179D2E6B004B8150 /* flat.frag in Resources */,
+				2C6CECA6179BB8C60084D4FD /* fragShader.frag in Resources */,
+				2C6CECA7179BB8C60084D4FD /* vertexShader.vert in Resources */,
+				2C20E866178FCDDF00B53137 /* InfoPlist.strings in Resources */,
+				2C20E86C178FCDDF00B53137 /* Credits.rtf in Resources */,
+				2C20E872178FCDE000B53137 /* MainMenu.xib in Resources */,
+				2C20E892178FE57500B53137 /* LuaMainWindow.lua in Resources */,
+				2C20E894178FE9A100B53137 /* LuaAppDelegate.lua in Resources */,
+				2CCEDACA17962A4500B0D8E4 /* LuaTextView.lua in Resources */,
+				2C8489F7179985020018C689 /* LuaOpenGLView.lua in Resources */,
+				2C1CB007179F677F00C9103C /* LuaOpenGLFrame.lua in Resources */,
+				2C1CB00E179F713E00C9103C /* LuaOpenGLMath.lua in Resources */,
+				2CCF144E17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua in Resources */,
+				2C4E2D6717A13338001641A7 /* LuaOpenGLFrustum.lua in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C20E854178FCDDF00B53137 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C20E868178FCDDF00B53137 /* main.m in Sources */,
+				2C20E86F178FCDDF00B53137 /* LDAppDelegate.m in Sources */,
+				2C20E87A178FCE0D00B53137 /* LDMainWindow.m in Sources */,
+				2C20E897178FEAD100B53137 /* LDUtilities.m in Sources */,
+				2CC69B9D1795167900737D7D /* LDScreen.m in Sources */,
+				2CC69BA81795577900737D7D /* LDFileManager.m in Sources */,
+				2CCEDAC3179613A800B0D8E4 /* LDTextView.m in Sources */,
+				2C8489F51799831B0018C689 /* LDOpenGLView.m in Sources */,
+				2C8489FC179988EB0018C689 /* LDOpenGL.m in Sources */,
+				2CD73F68179A5DA10049642E /* LDBundle.m in Sources */,
+				2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2C20E864178FCDDF00B53137 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C20E865178FCDDF00B53137 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2C20E86A178FCDDF00B53137 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C20E86B178FCDDF00B53137 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		2C20E870178FCDE000B53137 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C20E871178FCDE000B53137 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2C20E873178FCDE000B53137 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "../lua-5.2.2/src";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2C20E874178FCDE000B53137 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "../lua-5.2.2/src";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2C20E876178FCDE000B53137 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LuaDriver/LuaDriver-Prefix.pch";
+				INFOPLIST_FILE = "LuaDriver/LuaDriver-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2C20E877178FCDE000B53137 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LuaDriver/LuaDriver-Prefix.pch";
+				INFOPLIST_FILE = "LuaDriver/LuaDriver-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C20E853178FCDDF00B53137 /* Build configuration list for PBXProject "LuaDriver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C20E873178FCDE000B53137 /* Debug */,
+				2C20E874178FCDE000B53137 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C20E875178FCDE000B53137 /* Build configuration list for PBXNativeTarget "LuaDriver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C20E876178FCDE000B53137 /* Debug */,
+				2C20E877178FCDE000B53137 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2C20E850178FCDDF00B53137 /* Project object */;
+}
