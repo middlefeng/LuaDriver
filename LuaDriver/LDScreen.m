@@ -26,7 +26,6 @@ extern const char* k_userData;
 static int ld_get_main_screen(lua_State* L);
 
 
-static int ld_screen_gc(lua_State* L);
 static int ld_screen_get_frame(lua_State* L);
 
 
@@ -66,24 +65,11 @@ static int ld_get_main_screen(lua_State* L)
 	*ldscreen = [[NSScreen mainScreen] retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDScreen" gcmt:ld_screen_gc];
+	[LDUtilities newMetatable:L name:@"LDScreen" gcmt:ld_nsobject_release_gc];
 	luaL_setfuncs(L, LDScreenMetatable, 0);
 	lua_setmetatable(L, -2);
 	
 	return 1;
-}
-
-
-
-
-static int ld_screen_gc(lua_State* L)
-{
-	lua_getfield(L, 1, k_userData);
-	NSScreen** screen = (NSScreen**)lua_touserdata(L, -1);
-	[*screen release];
-	lua_pop(L, 2);
-	
-	return 0;
 }
 
 

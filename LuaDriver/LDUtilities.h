@@ -54,3 +54,8 @@ struct lua_State;
 
 
 @end
+
+
+
+extern int ld_nsobject_release_gc(struct lua_State* L);
+

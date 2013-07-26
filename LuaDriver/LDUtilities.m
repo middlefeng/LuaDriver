@@ -221,3 +221,11 @@ extern lua_State* g_L;
 
 
 
+extern int ld_nsobject_release_gc(struct lua_State* L)
+{
+	[LDUtilities commonGC:L];
+	return 0;
+}
+
+
+

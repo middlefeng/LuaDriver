@@ -27,7 +27,6 @@ extern const char* k_userData;
 static int ld_get_main_bundle(lua_State* L);
 
 
-static int ld_bundle_gc(lua_State* L);
 static int ld_bundle_path_for_resource(lua_State* L);
 
 
@@ -41,7 +40,6 @@ static const struct luaL_Reg LDBundleFuncs[] = {
 
 
 static const struct luaL_Reg LDBundleMetatable[] = {
-	{ "__gc", ld_bundle_gc },
 	{ "pathForResource", ld_bundle_path_for_resource },
 	{ NULL, NULL },
 };
@@ -68,24 +66,11 @@ static int ld_get_main_bundle(lua_State* L)
 	*ldbundle = [[NSBundle mainBundle] retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDBundle" gcmt:ld_bundle_gc];
+	[LDUtilities newMetatable:L name:@"LDBundle" gcmt:ld_nsobject_release_gc];
 	luaL_setfuncs(L, LDBundleMetatable, 0);
 	lua_setmetatable(L, -2);
 	
 	return 1;
-}
-
-
-
-
-static int ld_bundle_gc(lua_State* L)
-{
-	lua_getfield(L, 1, k_userData);
-	NSBundle** bundle = (NSBundle**)lua_touserdata(L, -1);
-	[*bundle release];
-	lua_pop(L, 2);
-	
-	return 0;
 }
 
 

@@ -29,10 +29,6 @@ static int ld_file_manager_create_directory(lua_State* L);
 
 
 
-static int ld_file_manager_gc(lua_State* L);
-
-
-
 
 static const luaL_Reg LDFileManager[] = {
 	{ "getHomeDirectory", ld_file_manager_get_home_directory },
@@ -83,20 +79,11 @@ static int ld_file_manager_get_default(lua_State* L)
 	lua_setfield(L, -2, k_userData);
 	
 	[LDUtilities newMetatable:L name:@"LDFileManager"
-						 gcmt:ld_file_manager_gc];
+						 gcmt:ld_nsobject_release_gc];
 	luaL_setfuncs(L, LDFileManagerMetatable, 0);
 	lua_setmetatable(L, -2);
 	
 	return 1;
-}
-
-
-
-
-static int ld_file_manager_gc(lua_State* L)
-{
-	[LDUtilities commonGC:L];
-	return 0;
 }
 
 
