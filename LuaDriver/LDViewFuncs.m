@@ -23,3 +23,17 @@ extern int ld_view_get_frame(struct lua_State* L)
 	[LDUtilities newLuaObject:L fromRect:[view frame]];
 	return 1;
 }
+
+
+
+
+extern int ld_view_set_needs_display(struct lua_State* L)
+{
+	NSView* view = [LDUtilities userDataFromLuaTable:L atIndex:1];
+	bool needs = lua_toboolean(L, 2);
+	lua_pop(L, 2);
+	
+	[view setNeedsDisplay:needs];
+	
+	return 0;
+}

@@ -50,7 +50,6 @@ function LDOpenGLView:prepareOpenGL()
 	--self.objectFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
 	--self.cameraFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
 
-	print("initializeTorus")
 	self:initializeTorus()
 
 	local frame = self:getFrame()
@@ -81,8 +80,6 @@ function LDOpenGLView:initializeShaders()
 	NSOpenGL.deleteShader(fragShader)
 
 	self.program = program
-
-	print("Shaders (" .. tostring(self.program) .. "): " .. tostring(NSOpenGL.getError()))
 end
 
 
@@ -116,6 +113,32 @@ function LDOpenGLView:drawRect(dirtyRect)
 	self.torus:draw()
 end
 
+
+
+
+function LDOpenGLView:keyDown(event)
+	local b1, b2, b3 = string.byte(event:getCharacters(), 1, 3)
+
+	if b1 ~= 239 or b2 ~= 156 then
+		return
+	end
+
+	if b3 == 128 then
+		-- key up
+		self.objectFrame:rotateWorld(-5.0 * 3.1416 / 180, { x=1, y=0, z=0 })
+	elseif b3 == 129 then
+		-- key down
+		self.objectFrame:rotateWorld(5.0 * 3.1416 / 180, { x=1, y=0, z=0 })
+	elseif b3 == 130 then
+		-- key left
+		self.objectFrame:rotateWorld(-5.0 * 3.1416 / 180, { x=0, y=1, z=0 })
+	elseif b3 == 131 then
+		-- key right
+		self.objectFrame:rotateWorld(5.0 * 3.1416 / 180, { x=0, y=1, z=0 })
+	end
+
+	self:setNeedsDisplay(true)
+end
 
 
 
@@ -196,8 +219,6 @@ function TriangleBatch:addTriangle(verts, normals, texCoords)
 	local e = 0.0001
 	OpenGLMath.normalizeArray(normals)
 
-	--print("Add Triangle: " .. tostring(#verts))
-
 	for iVertex = 1, 3 do
 
 		local bVertExist = false
@@ -213,8 +234,6 @@ function TriangleBatch:addTriangle(verts, normals, texCoords)
             end
         end
 
-        --print("Lens " .. tostring(#self.verts) .. " " .. tostring(#self.indexes))
-
         -- No match for this vertex, add to end of list
         if not bVertExist then
            	self.verts[#self.verts + 1] = verts[iVertex]
@@ -223,8 +242,6 @@ function TriangleBatch:addTriangle(verts, normals, texCoords)
             self.indexes[#self.indexes + 1] = { #self.verts - 1 }
         end
     end
-
-    --print(tostring(#self.indexes) .. ", " .. tostring(#self.verts))
 end
 
 
@@ -239,13 +256,10 @@ function TriangleBatch:endBatch()
 
 	self.indexBuffer = NSOpenGL.genBuffers(1)
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
-	print("Buffer Data for Elements: " .. tostring(#self.indexes))
 	NSOpenGL.bufferData("GL_ELEMENT_ARRAY_BUFFER", "GL_UNSIGNED_SHORT",
 						self.indexes, "GL_STATIC_DRAW")
 
 	self.vertObject:unbind()
-
-	print("End Batch: " .. tostring(NSOpenGL.getError()))
 end
 
 
@@ -260,8 +274,6 @@ function TriangleBatch:draw()
 
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
 	NSOpenGL.drawElements("GL_TRIANGLES", #self.indexes, "GL_UNSIGNED_SHORT");
-
-	print("Draw: " .. tostring(NSOpenGL.getError()))
 end
 
 
@@ -315,12 +327,8 @@ function VertArrayObject:genBuffer(name, verts)
 	self.buffers[name] = {}
 	self.buffers[name].handle = NSOpenGL.genBuffers(1)
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
-	print("Buffer Data for name: " .. name)
-	print("Buffer Len: " .. tostring(#verts))
 	NSOpenGL.bufferData("GL_ARRAY_BUFFER", "GL_FLOAT", verts, "GL_DYNAMIC_DRAW")
 	NSOpenGL.vertexAttribPointer(self.nextAttribPointer, 3, "GL_FLOAT", false)
-
-	print("Buffer Location: " .. tostring(self.nextAttribPointer))
 
 	self.buffers[name].location = self.nextAttribPointer
 	self.nextAttribPointer = self.nextAttribPointer + 1
@@ -332,9 +340,6 @@ end
 function VertArrayObject:bindBuffer(name)
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
 	NSOpenGL.enableVertexAttribArray(self.buffers[name].location);
-
-	print("Bind Buffer (" .. name .. "): " .. tostring(self.buffers[name].location))
-
 	NSOpenGL.vertexAttribPointer(self.buffers[name].location, 3, "GL_FLOAT", false)
 end
 

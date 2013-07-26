@@ -13,3 +13,4 @@ struct lua_State;
 
 
 extern int ld_view_get_frame(struct lua_State*);
+extern int ld_view_set_needs_display(struct lua_State*);

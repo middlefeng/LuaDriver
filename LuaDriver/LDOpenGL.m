@@ -362,10 +362,8 @@ static int ld_opengl_bufferData(lua_State* L)
 			lua_rawgeti(L, -1, (int)(e + 1));
 			if (strcmp(type, "GL_FLOAT") == 0) {
 				((GLfloat*)buffer)[i * elementCount + e] = (GLfloat)luaL_checknumber(L, -1);
-				NSLog(@"Buffer Data [%ld], %f", i * elementCount + e, luaL_checknumber(L, -1));
 			} else if (strcmp(type, "GL_UNSIGNED_SHORT") == 0) {
 				((GLushort*)buffer)[i * elementCount + e] = (GLushort)luaL_checkunsigned(L, -1);
-				NSLog(@"Buffer Data [%ld], %f", i * elementCount + e, luaL_checknumber(L, -1));
 			} else if (strcmp(type, "GL_SHORT") == 0) {
 				((GLshort*)buffer)[i * elementCount + e] = (GLshort)luaL_checkinteger(L, -1);
 			}

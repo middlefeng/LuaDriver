@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C08FC6517A2993700AC17C4 /* LDEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C08FC6417A2993700AC17C4 /* LDEvent.m */; };
 		2C1CB007179F677F00C9103C /* LuaOpenGLFrame.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */; };
 		2C1CB00E179F713E00C9103C /* LuaOpenGLMath.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */; };
 		2C20E85C178FCDDF00B53137 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C20E85B178FCDDF00B53137 /* Cocoa.framework */; };
@@ -77,6 +78,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C08FC6317A2993700AC17C4 /* LDEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDEvent.h; sourceTree = "<group>"; };
+		2C08FC6417A2993700AC17C4 /* LDEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDEvent.m; sourceTree = "<group>"; };
 		2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLFrame.lua; sourceTree = "<group>"; };
 		2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLMath.lua; sourceTree = "<group>"; };
 		2C20E858178FCDDF00B53137 /* LuaDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +275,8 @@
 				2C8489FB179988EB0018C689 /* LDOpenGL.m */,
 				2CD73F66179A5DA10049642E /* LDBundle.h */,
 				2CD73F67179A5DA10049642E /* LDBundle.m */,
+				2C08FC6317A2993700AC17C4 /* LDEvent.h */,
+				2C08FC6417A2993700AC17C4 /* LDEvent.m */,
 				2C20E895178FEAD100B53137 /* LDUtilities.h */,
 				2C20E896178FEAD100B53137 /* LDUtilities.m */,
 			);
@@ -421,6 +426,7 @@
 				2C8489FC179988EB0018C689 /* LDOpenGL.m in Sources */,
 				2CD73F68179A5DA10049642E /* LDBundle.m in Sources */,
 				2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */,
+				2C08FC6517A2993700AC17C4 /* LDEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

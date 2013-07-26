@@ -9,6 +9,7 @@
 #import "LDOpenGLView.h"
 #import "LDUtilities.h"
 #import "LDViewFuncs.h"
+#import "LDEvent.h"
 
 #import "lua.h"
 #import "lualib.h"
@@ -35,6 +36,7 @@ static int ld_opengl_view_super_draw_rect(lua_State* L);
 static const luaL_Reg LDOpenGLViewMetatable[] = {
 	{ "superDrawRect", ld_opengl_view_super_draw_rect },
 	{ "getFrame", ld_view_get_frame },
+	{ "setNeedsDisplay", ld_view_set_needs_display },
 	{ NULL, NULL },
 };
 
@@ -123,10 +125,6 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 	lua_pushvalue(g_L, -2);								// "this"
 	
 	lua_call(g_L, 1, 0);
-	
-	GLint loc = glGetAttribLocation(3, "vVertex");
-	GLint err = glGetError();
-	NSLog(@"%d, %d", loc, err);
 }
 
 
@@ -185,9 +183,17 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 
 - (void)keyDown:(NSEvent *)theEvent
 {
-	char key = [[theEvent characters] characterAtIndex:0];
+	[self createUserData:g_L];
 	
-	NSLog(@"%c", key);
+	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
+	
+	lua_getglobal(g_L, "LDOpenGLView");
+	lua_getfield(g_L, -1, "keyDown");					// funcs
+	lua_remove(g_L, -2);
+	lua_pushvalue(g_L, -2);								// "this"
+	newLuaObjectOfEvent(g_L, theEvent);					// event
+	
+	lua_call(g_L, 2, 0);
 }
 
 
