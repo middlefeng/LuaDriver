@@ -69,6 +69,7 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 		
 		NSOpenGLPixelFormatAttribute attributes [] = {
 			NSOpenGLPFADoubleBuffer,
+			NSOpenGLPFADepthSize, 32,
 			NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
 			0
 		};

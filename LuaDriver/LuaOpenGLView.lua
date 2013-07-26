@@ -116,7 +116,7 @@ function LDOpenGLView:drawRect(dirtyRect)
 	self.torus:draw()
 
 	
-	NSOpenGL.polygonOffset(-1, -1)
+	NSOpenGL.polygonOffset(-0.5, -1)
 	NSOpenGL.enable("GL_LINE_SMOOTH")
 	NSOpenGL.enable("GL_BLEND")
 	NSOpenGL.blendFunc("GL_SRC_ALPHA", "GL_ONE_MINUS_SRC_ALPHA")
