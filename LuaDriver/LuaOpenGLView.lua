@@ -116,14 +116,14 @@ function LDOpenGLView:drawRect(dirtyRect)
 	self.torus:draw()
 
 	
-	NSOpenGL.polygonOffset(-0.5, -1)
+	NSOpenGL.polygonOffset(-1, -0.2)
 	NSOpenGL.enable("GL_LINE_SMOOTH")
 	NSOpenGL.enable("GL_BLEND")
 	NSOpenGL.blendFunc("GL_SRC_ALPHA", "GL_ONE_MINUS_SRC_ALPHA")
     NSOpenGL.enable("GL_POLYGON_OFFSET_LINE")
     NSOpenGL.polygonMode("GL_FRONT_AND_BACK", "GL_LINE")
     NSOpenGL.lineWidth(2.5)
-    NSOpenGL.uniform(colorLocation, { 0, 0, 0, 1 } )
+    NSOpenGL.uniform(colorLocation, { 0, 0, 0.5, 1 } )
 
     self.torus:draw()
 
@@ -144,18 +144,20 @@ function LDOpenGLView:keyDown(event)
 		return
 	end
 
+	local step = 1.0
+
 	if b3 == 128 then
 		-- key up
-		self.objectFrame:rotateWorld(-5.0 * 3.1416 / 180, { x=1, y=0, z=0 })
+		self.objectFrame:rotateWorld(-step * 3.1416 / 180, { x=1, y=0, z=0 })
 	elseif b3 == 129 then
 		-- key down
-		self.objectFrame:rotateWorld(5.0 * 3.1416 / 180, { x=1, y=0, z=0 })
+		self.objectFrame:rotateWorld(step * 3.1416 / 180, { x=1, y=0, z=0 })
 	elseif b3 == 130 then
 		-- key left
-		self.objectFrame:rotateWorld(-5.0 * 3.1416 / 180, { x=0, y=1, z=0 })
+		self.objectFrame:rotateWorld(-step * 3.1416 / 180, { x=0, y=1, z=0 })
 	elseif b3 == 131 then
 		-- key right
-		self.objectFrame:rotateWorld(5.0 * 3.1416 / 180, { x=0, y=1, z=0 })
+		self.objectFrame:rotateWorld(step * 3.1416 / 180, { x=0, y=1, z=0 })
 	end
 
 	self:setNeedsDisplay(true)
