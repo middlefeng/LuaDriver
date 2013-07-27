@@ -50,7 +50,7 @@ function LDOpenGLView:prepareOpenGL()
 	--self.objectFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
 	--self.cameraFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
 
-	self:initializeTorus()
+	self:initializeObject()
 
 	local frame = self:getFrame()
 	self:setScene(frame)
@@ -85,10 +85,12 @@ end
 
 
 
-function LDOpenGLView:initializeTorus()
+function LDOpenGLView:initializeObject()
 	self.torus = TriangleBatch:begin()
-	-- makeTorus(self.torus, 3.0, 0.75, 15, 15);
-	makeSphere(self.torus, 3, 10, 20)
+	self.sphere = TriangleBatch:begin()
+	makeTorus(self.torus, 3.0, 0.75, 15, 15);
+	makeSphere(self.sphere, 3, 10, 20)
+	self.currentObject = self.torus
 end
 
 
@@ -114,7 +116,7 @@ function LDOpenGLView:drawRect(dirtyRect)
 	local colorLocation = NSOpenGL.getUniformLocation(self.program, "vColor")
 	NSOpenGL.uniform(colorLocation, { 0, 1, 0, 1 })
 
-	self.torus:draw()
+	self.currentObject:draw()
 
 	
 	NSOpenGL.polygonOffset(-1, -0.2)
@@ -126,7 +128,7 @@ function LDOpenGLView:drawRect(dirtyRect)
     NSOpenGL.lineWidth(2.5)
     NSOpenGL.uniform(colorLocation, { 0, 0, 0.5, 1 } )
 
-    self.torus:draw()
+    self.currentObject:draw()
 
     NSOpenGL.polygonMode("GL_FRONT_AND_BACK", "GL_FILL");
     NSOpenGL.disable("GL_POLYGON_OFFSET_LINE");
@@ -163,6 +165,40 @@ function LDOpenGLView:keyDown(event)
 
 	self:setNeedsDisplay(true)
 end
+
+
+
+function LDOpenGLView:rightMouseDown(event)
+	-- Nothing
+end
+
+
+
+
+function LDOpenGLView:drawObjectType(menuItem)
+	
+	-- Do nothing if it is ON
+	if menuItem:getState() == "NSOnState" then
+		return
+	end
+
+	local menu = menuItem:getMenu()
+
+
+	for _, item in ipairs(menu:getItems()) do
+		item:setState("NSOffState")
+	end
+	menuItem:setState("NSOnState")
+
+	if menuItem:getTitle() == "Draw Sphere" then
+		self.currentObject = self.sphere
+	else
+		self.currentObject = self.torus
+	end
+
+	self:setNeedsDisplay(true)
+end
+
 
 
 
@@ -405,9 +441,6 @@ function makeTorus(torusBatch, majorRadius, minorRadius, numMajor, numMinor)
 
     local majorStep = 2.0 * pi / numMajor
     local minorStep = 2.0 * pi / numMinor
-    
-	
-    torusBatch:begin()
 
     for i = 1, numMajor do
 
@@ -531,8 +564,6 @@ function makeSphere(sphere, radius, slices, stacks)
 	local t = 1
 	local s = 0
     
-    
-    sphere:begin()
 	for i = 1, stacks do
 		
 		local rho = (i - 1) * drho

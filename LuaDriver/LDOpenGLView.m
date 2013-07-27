@@ -10,6 +10,7 @@
 #import "LDUtilities.h"
 #import "LDViewFuncs.h"
 #import "LDEvent.h"
+#import "LDMenu.h"
 
 #import "lua.h"
 #import "lualib.h"
@@ -193,6 +194,46 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 	lua_remove(g_L, -2);
 	lua_pushvalue(g_L, -2);								// "this"
 	newLuaObjectOfEvent(g_L, theEvent);					// event
+	
+	lua_call(g_L, 2, 0);
+}
+
+
+
+
+- (void)rightMouseDown:(NSEvent *)theEvent
+{
+	[self createUserData:g_L];
+	
+	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
+	
+	lua_getglobal(g_L, "LDOpenGLView");
+	lua_getfield(g_L, -1, "rightMouseDown");			// funcs
+	lua_remove(g_L, -2);
+	lua_pushvalue(g_L, -2);								// "this"
+	newLuaObjectOfEvent(g_L, theEvent);					// event
+	
+	lua_call(g_L, 2, 0);
+	
+	[super rightMouseDown:theEvent];
+}
+
+
+
+
+- (IBAction)drawObjectType:(id)sender
+{
+	NSMenuItem* item = sender;
+
+	[self createUserData:g_L];
+	
+	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
+	
+	lua_getglobal(g_L, "LDOpenGLView");
+	lua_getfield(g_L, -1, "drawObjectType");			// funcs
+	lua_remove(g_L, -2);
+	lua_pushvalue(g_L, -2);								// "this"
+	newLuaObjectOfMenuItem(g_L, item);					// item
 	
 	lua_call(g_L, 2, 0);
 }

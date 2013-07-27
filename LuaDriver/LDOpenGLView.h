@@ -21,5 +21,7 @@
 @property int userDataRef;
 
 
+- (IBAction)drawObjectType:(id)sender;
+
 
 @end

@@ -23,6 +23,7 @@
 		2C4E2D6717A13338001641A7 /* LuaOpenGLFrustum.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */; };
 		2C5AB3B1179D2E6B004B8150 /* flat.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3A8179D2CDB004B8150 /* flat.vert */; };
 		2C5AB3B2179D2E6B004B8150 /* flat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3AF179D2CE7004B8150 /* flat.frag */; };
+		2C697C8D17A3AD0C004C79C6 /* LDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C697C8C17A3AD0C004C79C6 /* LDMenu.m */; };
 		2C6CECA6179BB8C60084D4FD /* fragShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C6CEC9C179BB8A50084D4FD /* fragShader.frag */; };
 		2C6CECA7179BB8C60084D4FD /* vertexShader.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2C6CEC9D179BB8A50084D4FD /* vertexShader.vert */; };
 		2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6CECA9179CAF050084D4FD /* LDViewFuncs.m */; };
@@ -104,6 +105,8 @@
 		2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLFrustum.lua; sourceTree = "<group>"; };
 		2C5AB3A8179D2CDB004B8150 /* flat.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flat.vert; sourceTree = "<group>"; };
 		2C5AB3AF179D2CE7004B8150 /* flat.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flat.frag; sourceTree = "<group>"; };
+		2C697C8B17A3AD0C004C79C6 /* LDMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDMenu.h; sourceTree = "<group>"; };
+		2C697C8C17A3AD0C004C79C6 /* LDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDMenu.m; sourceTree = "<group>"; };
 		2C6CEC9C179BB8A50084D4FD /* fragShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fragShader.frag; sourceTree = "<group>"; };
 		2C6CEC9D179BB8A50084D4FD /* vertexShader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = vertexShader.vert; sourceTree = "<group>"; };
 		2C6CECA8179CAF050084D4FD /* LDViewFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewFuncs.h; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				2CD73F67179A5DA10049642E /* LDBundle.m */,
 				2C08FC6317A2993700AC17C4 /* LDEvent.h */,
 				2C08FC6417A2993700AC17C4 /* LDEvent.m */,
+				2C697C8B17A3AD0C004C79C6 /* LDMenu.h */,
+				2C697C8C17A3AD0C004C79C6 /* LDMenu.m */,
 				2C20E895178FEAD100B53137 /* LDUtilities.h */,
 				2C20E896178FEAD100B53137 /* LDUtilities.m */,
 			);
@@ -427,6 +432,7 @@
 				2CD73F68179A5DA10049642E /* LDBundle.m in Sources */,
 				2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */,
 				2C08FC6517A2993700AC17C4 /* LDEvent.m in Sources */,
+				2C697C8D17A3AD0C004C79C6 /* LDMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
