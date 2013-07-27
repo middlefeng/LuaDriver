@@ -87,7 +87,8 @@ end
 
 function LDOpenGLView:initializeTorus()
 	self.torus = TriangleBatch:begin()
-	makeTorus(self.torus, 3.0, 0.75, 15, 15);
+	-- makeTorus(self.torus, 3.0, 0.75, 15, 15);
+	makeSphere(self.torus, 3, 10, 20)
 end
 
 
@@ -519,4 +520,95 @@ function makeTorus(torusBatch, majorRadius, minorRadius, numMajor, numMinor)
 	torusBatch:endBatch()
 end
 
+
+
+
+function makeSphere(sphere, radius, slices, stacks)
+    local drho = 3.141592653589 / stacks
+    local dtheta = 2 * 3.141592653589 / slices
+	local ds = 1 / slices
+	local dt = 1 / stacks
+	local t = 1
+	local s = 0
+    
+    
+    sphere:begin()
+	for i = 1, stacks do
+		
+		local rho = (i - 1) * drho
+		local srho = math.sin(rho)
+		local crho = math.cos(rho)
+		local srhodrho = math.sin(rho + drho)
+		local crhodrho = math.cos(rho + drho)
+		
+        -- Many sources of OpenGL sphere drawing code uses a triangle fan
+        -- for the caps of the sphere. This however introduces texturing 
+        -- artifacts at the poles on some OpenGL implementations
+        s = 0
+		local vVertex = {}
+		local vNormal = {}
+		local vTexture = {}
+
+		for j = 1, slices do
+
+			local theta = (j - 1) * dtheta
+			local stheta = -math.sin(theta)
+			local ctheta = math.cos(theta)
+			
+			local x = stheta * srho
+			local y = ctheta * srho
+			local z = crho
+        
+			vTexture[1] = { s, t }
+			vNormal[1] = { x, y, z }
+			vVertex[1] = { x * radius, y * radius, z * radius }
+			
+            x = stheta * srhodrho
+			y = ctheta * srhodrho
+			z = crhodrho
+
+ 			vTexture[2] = { s, t - dt }
+			vNormal[2] = { x, y, z }
+			vVertex[2] = { x * radius, y * radius, z * radius }
+			
+
+			theta = (j == iSlices) and 0 or (j * dtheta)
+			stheta = -math.sin(theta)
+			ctheta = math.cos(theta)
+			
+			x = stheta * srho
+			y = ctheta * srho
+			z = crho
+        
+            s = s + ds
+			vTexture[3]= { s, t }
+			vNormal[3] = { x, y, z }
+			vVertex[3] = { x * radius, y * radius, z * radius }
+			
+            x = stheta * srhodrho
+			y = ctheta * srhodrho
+			z = crhodrho
+
+ 			vTexture[4] = { s, t - dt }
+			vNormal[4] = { x, y, z }
+			vVertex[4] = { x * radius, y * radius, z * radius }
+		
+			sphere:addTriangle(vVertex, vNormal, vTexture);			
+			
+			-- Rearrange for next triangle
+			vVertex[1] = vVertex[2]
+			vNormal[1] = vNormal[2]
+			vTexture[1] = vTexture[2]
+
+			vVertex[2] = vVertex[4]
+			vNormal[2] = vNormal[4]
+			vTexture[2] = vTexture[4]
+			
+			sphere:addTriangle(vVertex, vNormal, vTexture)
+		end
+
+        t = t - dt
+    end
+	sphere:endBatch()
+end
 
