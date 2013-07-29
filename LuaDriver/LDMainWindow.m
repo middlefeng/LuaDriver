@@ -72,7 +72,7 @@ static const luaL_Reg metatable[] = {
 
 	_userDataRef = [LDUtilities newLuaObject:L fromObject:self];
 	
-	[LDUtilities prepMetatable:L name:@"LDMainWindow" gcmt:nil];
+	[LDUtilities prepMetatable:L name:@"LDMainWindow"];
 	lua_getglobal(L, "LDMainWindow");
 	luaL_setfuncs(L, metatable, 0);		/* add file methods to new metatable */
 	lua_setmetatable(L, -2);

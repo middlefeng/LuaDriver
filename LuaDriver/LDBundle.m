@@ -66,7 +66,7 @@ static int ld_get_main_bundle(lua_State* L)
 	*ldbundle = [[NSBundle mainBundle] retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDBundle" gcmt:ld_nsobject_release_gc];
+	[LDUtilities newMetatable:L name:@"LDBundle"];
 	luaL_setfuncs(L, LDBundleMetatable, 0);
 	lua_setmetatable(L, -2);
 	

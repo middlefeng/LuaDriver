@@ -32,6 +32,7 @@ const char* k_userData = "__userData";
 
 
 const char* luaClassFiles[] = {
+	"LuaAppDelegate",
 	"LuaMainWindow",
 	"LuaTextView",
 	"LuaOpenGLView",

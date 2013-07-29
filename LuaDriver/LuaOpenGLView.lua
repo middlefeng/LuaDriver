@@ -184,7 +184,6 @@ function LDOpenGLView:drawObjectType(menuItem)
 
 	local menu = menuItem:getMenu()
 
-
 	for _, item in ipairs(menu:getItems()) do
 		item:setState("NSOffState")
 	end

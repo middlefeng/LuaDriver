@@ -54,7 +54,7 @@ extern void newLuaObjectOfEvent(struct lua_State* L, NSEvent* event)
 	*ldevent = [event retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDEvent" gcmt:ld_nsobject_release_gc];
+	[LDUtilities newMetatable:L name:@"LDEvent"];
 	luaL_setfuncs(L, LDEventMetaFuncs, 0);
 	lua_setmetatable(L, -2);
 }

@@ -43,12 +43,34 @@ struct lua_State;
 
 
 + (void) commonGC:(struct lua_State*)L;
-+ (void) newMetatable:(struct lua_State*)L name:(NSString*)name
-				 gcmt:(lua_CFunction)gcmt;
-+ (void) prepMetatable:(struct lua_State*)L name:(NSString*)name
-				  gcmt:(lua_CFunction)gcmt;
 + (int) newLuaObject:(struct lua_State*)L fromObject:(id)obj;
 + (id) userDataFromLuaTable:(struct lua_State*)L atIndex:(int)index;
+
+
+
+/****
+ *		Setup metatable
+ *		============================================
+ *		newMetatable:... create a new metatable:
+ *			1. Only accessiable from C code.
+ *			2. Used by classes not derivable.
+ *			3. Leave the metatable on the stack.
+ *		prepMetatable:... take an existing global Lua table and set it up
+ *		as a metatable:
+ *			1. Accessible both from Lua and from C.
+ *			2. Used by classes meant for subclassing.
+ */
++ (void) newMetatable:(struct lua_State*)L name:(NSString*)name;
++ (void) prepMetatable:(struct lua_State*)L name:(NSString*)name;
+
+
+
+/****
+ *		Leave the function name and the Lua object on the stack
+ *		for a following invocation to Lua object (for a derived class).
+ */
++ (void) prepCall:(struct lua_State*)L onMethod:(NSString*)methodName
+									   onObject:(id)obj;
 
 
 

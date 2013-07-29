@@ -62,47 +62,40 @@ static const luaL_Reg metatable[] = {
 
 
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-	NSString* luaSrcName = @"LuaAppDelegate";
-	NSString* luaSrcPath = [LDUtilities luaSourcePath:luaSrcName];
-	if (luaL_loadfile(g_L, [luaSrcPath UTF8String]) != LUA_OK) {
-		[LDUtilities error:@"Failed to load file %@.", luaSrcName];
-		return;
-	}
-	
-	[self createUserData:g_L];
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	
-	int result = lua_pcall(g_L, 1, 0, 0);
-	if (result != LUA_OK) {
-		const char* error = "unknown";
-		if (lua_isstring(g_L, -1)) {
-			error = lua_tostring(g_L, -1);
-		}
-		
-		NSString* nsError = [NSString stringWithFormat:@"Failed to run file:%@, Error: %s.",
-								luaSrcName, error];
-		[LDUtilities error:nsError];
-		lua_pop(g_L, 1);
-	}
-}
-
-
-
-
 - (void) createUserData:(struct lua_State*)L
 {
 	if (_userDataRef)
 		return;
 	
 	_userDataRef = [LDUtilities newLuaObject:L fromObject:self];
-	[LDUtilities newMetatable:L name:@"LDAppDelegate" gcmt:nil];
-	luaL_setfuncs(L, metatable, 0);
 	
+	[LDUtilities prepMetatable:L name:@"LDAppDelegate"];
+	lua_getglobal(L, "LDAppDelegate");
+	luaL_setfuncs(L, metatable, 0);
 	lua_setmetatable(L, -2);
+	
 	lua_pop(L, 2);
 }
+
+
+
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+	[self createUserData:g_L];
+	[LDUtilities prepCall:g_L onMethod:@"applicationDidFinishLaunching"
+				 onObject:self];
+	lua_call(g_L, 1, 0);
+}
+
+
+
+
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+	return YES;
+}
+
 
 
 

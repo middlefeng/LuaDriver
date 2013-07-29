@@ -65,7 +65,7 @@ static int ld_get_main_screen(lua_State* L)
 	*ldscreen = [[NSScreen mainScreen] retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDScreen" gcmt:ld_nsobject_release_gc];
+	[LDUtilities newMetatable:L name:@"LDScreen"];
 	luaL_setfuncs(L, LDScreenMetatable, 0);
 	lua_setmetatable(L, -2);
 	

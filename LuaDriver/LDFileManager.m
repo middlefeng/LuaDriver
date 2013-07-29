@@ -78,8 +78,7 @@ static int ld_file_manager_get_default(lua_State* L)
 	*manager = [[NSFileManager defaultManager] retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDFileManager"
-						 gcmt:ld_nsobject_release_gc];
+	[LDUtilities newMetatable:L name:@"LDFileManager"];
 	luaL_setfuncs(L, LDFileManagerMetatable, 0);
 	lua_setmetatable(L, -2);
 	

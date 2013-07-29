@@ -56,18 +56,24 @@ static const luaL_Reg LDTextViewMetatable[] = {
 
 
 
+- (void)dealloc
+{
+	if (_userDataRef)
+		luaL_unref(g_L, LUA_REGISTRYINDEX, _userDataRef);
+	
+	[super dealloc];
+}
+
+
+
+
 
 - (void)drawRect:(NSRect)dirtyRect
 {
 	[self createUserData:g_L];
 
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-
-	lua_getglobal(g_L, "LDTextView");
-	lua_getfield(g_L, -1, "drawRect");					// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
-	[LDUtilities newLuaObject:g_L fromRect:dirtyRect];  // rect
+	[LDUtilities prepCall:g_L onMethod:@"drawRect" onObject:self];
+	[LDUtilities newLuaObject:g_L fromRect:dirtyRect];
 	
 	lua_pcall(g_L, 2, 0, 0);
 }
@@ -91,7 +97,7 @@ static const luaL_Reg LDTextViewMetatable[] = {
 	
 	_userDataRef = [LDUtilities newLuaObject:L fromObject:self];
 	
-	[LDUtilities prepMetatable:L name:@"LDTextView" gcmt:nil];
+	[LDUtilities prepMetatable:L name:@"LDTextView"];
 	
 	lua_getglobal(L, "LDTextView");
 	luaL_setfuncs(L, LDTextViewMetatable, 0);

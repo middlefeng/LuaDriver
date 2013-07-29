@@ -48,11 +48,7 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 {
 	[self createUserData:g_L];
 	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "dealloc");	/* func */
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);				/* this */
+	[LDUtilities prepCall:g_L onMethod:@"dealloc" onObject:self];
 	lua_call(g_L, 1, 0);
 	
 	luaL_unref(g_L, LUA_REGISTRYINDEX, _userDataRef);
@@ -94,7 +90,7 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 	
 	_userDataRef = [LDUtilities newLuaObject:L fromObject:self];
 	
-	[LDUtilities prepMetatable:L name:@"LDOpenGLView" gcmt:nil];
+	[LDUtilities prepMetatable:L name:@"LDOpenGLView"];
 	
 	lua_getglobal(L, "LDOpenGLView");
 	luaL_setfuncs(L, LDOpenGLViewMetatable, 0);
@@ -119,13 +115,7 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 - (void)prepareOpenGL
 {
 	[self createUserData:g_L];
-	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "prepareOpenGL");				// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
-	
+	[LDUtilities prepCall:g_L onMethod:@"prepareOpenGL" onObject:self];
 	lua_call(g_L, 1, 0);
 }
 
@@ -137,13 +127,7 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 - (void)drawRect:(NSRect)dirtyRect
 {
 	[self createUserData:g_L];
-	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "drawRect");					// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
+	[LDUtilities prepCall:g_L onMethod:@"drawRect" onObject:self];
 	[LDUtilities newLuaObject:g_L fromRect:dirtyRect];  // rect
 	
 	lua_call(g_L, 2, 0);
@@ -158,13 +142,8 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 {
 	[self createUserData:g_L];
 	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "setFrame");					// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
-	[LDUtilities newLuaObject:g_L fromRect:frameRect];  // rect
+	[LDUtilities prepCall:g_L onMethod:@"setFrame" onObject:self];
+	[LDUtilities newLuaObject:g_L fromRect:frameRect];
 	
 	lua_call(g_L, 2, 0);
 	
@@ -187,13 +166,8 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 {
 	[self createUserData:g_L];
 	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "keyDown");					// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
-	newLuaObjectOfEvent(g_L, theEvent);					// event
+	[LDUtilities prepCall:g_L onMethod:@"keyDown" onObject:self];
+	newLuaObjectOfEvent(g_L, theEvent);
 	
 	lua_call(g_L, 2, 0);
 }
@@ -205,13 +179,8 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 {
 	[self createUserData:g_L];
 	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "rightMouseDown");			// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
-	newLuaObjectOfEvent(g_L, theEvent);					// event
+	[LDUtilities prepCall:g_L onMethod:@"rightMouseDown" onObject:self];
+	newLuaObjectOfEvent(g_L, theEvent);
 	
 	lua_call(g_L, 2, 0);
 	
@@ -227,13 +196,8 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 
 	[self createUserData:g_L];
 	
-	lua_rawgeti(g_L, LUA_REGISTRYINDEX, _userDataRef);
-	
-	lua_getglobal(g_L, "LDOpenGLView");
-	lua_getfield(g_L, -1, "drawObjectType");			// funcs
-	lua_remove(g_L, -2);
-	lua_pushvalue(g_L, -2);								// "this"
-	newLuaObjectOfMenuItem(g_L, item);					// item
+	[LDUtilities prepCall:g_L onMethod:@"drawObjectType" onObject:self];
+	newLuaObjectOfMenuItem(g_L, item);
 	
 	lua_call(g_L, 2, 0);
 }

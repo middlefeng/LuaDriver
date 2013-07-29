@@ -156,32 +156,40 @@ extern lua_State* g_L;
 
 
 + (void) newMetatable:(struct lua_State*)L name:(NSString*)name
-				 gcmt:(lua_CFunction)gcmt;
 {
 	luaL_newmetatable(L, [name UTF8String]);
 	lua_pushvalue(L, -1);
 	lua_setfield(L, -2, "__index");
-	if (gcmt) {
-		lua_pushcfunction(L, gcmt);
-		lua_setfield(L, -2, "__gc");
-	}
+
+	lua_pushcfunction(L, ld_nsobject_release_gc);
+	lua_setfield(L, -2, "__gc");
 }
 
 
 
 
 + (void) prepMetatable:(struct lua_State*)L name:(NSString*)name
-				  gcmt:(lua_CFunction)gcmt
 {
 	lua_getglobal(L, [name UTF8String]);
 	lua_pushvalue(L, -1);
 	lua_setfield(L, -2, "__index");
-	if (gcmt) {
-		lua_pushcfunction(L, gcmt);
-		lua_setfield(L, -2, "__gc");
-	}
+
 	lua_pop(L, 1);
 }
+
+
+
+
++ (void) prepCall:(struct lua_State*)L onMethod:(NSString*)methodName
+									   onObject:(id)obj
+{
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (int)[obj userDataRef]);
+	lua_getmetatable(L, -1);
+	lua_getfield(L, -1, [methodName UTF8String]);
+	lua_remove(L, -2);
+	lua_pushvalue(L, -2);
+}
+
 
 
 

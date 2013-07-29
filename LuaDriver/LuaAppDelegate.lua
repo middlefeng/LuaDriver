@@ -1,17 +1,20 @@
 
 
 
+LDAppDelegate = {}
 
 
-local delegate = ...
-local window = delegate:getMainWindow()
 
-window:setTitle("Lua OpenGL Driver")
-window:makeKeyAndOrderFront(delegate)
 
-local screen = NSScreen.getMainScreen()
-local screenFrame = screen:getFrame()
+function LDAppDelegate:applicationDidFinishLaunching()
+	local window = self:getMainWindow()
 
+	window:setTitle("Lua OpenGL Driver")
+	window:makeKeyAndOrderFront(self)
+
+	local screen = NSScreen.getMainScreen()
+	local screenFrame = screen:getFrame()
+end
 
 
 

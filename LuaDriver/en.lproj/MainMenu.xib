@@ -1295,7 +1295,7 @@
 				<int key="NSWindowStyleMask">271</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{304, 157}, {891, 591}}</string>
-				<int key="NSWTFlags">611844096</int>
+				<int key="NSWTFlags">1685585920</int>
 				<string key="NSWindowTitle">LuaDriver</string>
 				<string key="NSWindowClass">LDMainWindow</string>
 				<nil key="NSViewClass"/>

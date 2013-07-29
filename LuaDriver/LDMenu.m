@@ -65,7 +65,7 @@ extern void newLuaObjectOfMenu(struct lua_State* L, NSMenu* menu)
 	*ldmenu = [menu retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDMenu" gcmt:ld_nsobject_release_gc];
+	[LDUtilities newMetatable:L name:@"LDMenu"];
 	luaL_setfuncs(L, LDMenuMetaFuncs, 0);
 	lua_setmetatable(L, -2);
 }
@@ -99,7 +99,7 @@ extern void newLuaObjectOfMenuItem(struct lua_State* L, NSMenuItem* item)
 	*lditem = [item retain];
 	lua_setfield(L, -2, k_userData);
 	
-	[LDUtilities newMetatable:L name:@"LDMenuItem" gcmt:ld_nsobject_release_gc];
+	[LDUtilities newMetatable:L name:@"LDMenuItem"];
 	luaL_setfuncs(L, LDMenuItemMetaFuncs, 0);
 	lua_setmetatable(L, -2);
 }
