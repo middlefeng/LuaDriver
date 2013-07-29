@@ -87,7 +87,9 @@ end
 
 function LDOpenGLView:initializeObject()
 	self.torus = TriangleBatch:begin()
+	self.torus.program = self.program
 	self.sphere = TriangleBatch:begin()
+	self.sphere.program = self.program
 	makeTorus(self.torus, 3.0, 0.75, 15, 15);
 	makeSphere(self.sphere, 3, 10, 20)
 	self.currentObject = self.torus
@@ -308,8 +310,9 @@ end
 
 function TriangleBatch:endBatch()
 	self.vertObject = VertArrayObject:new()
+	self.vertObject.program = self.program
 
-	self.vertObject:genBuffer("vert", self.verts)
+	self.vertObject:genBuffer("vert", self.verts, "vVertex")
 	--self.vertObject:genBuffer("norm", self.normals)
 	--self.vertObject:genBuffer("texC", self.texCoords)
 
@@ -363,7 +366,6 @@ function VertArrayObject:new()
 	result.vertObj = NSOpenGL.genVertexArrays(1)
 	result:bind()
 	result.buffers = {}
-	result.nextAttribPointer = 0
 
 	return result
 end
@@ -382,15 +384,14 @@ end
 
 
 
-function VertArrayObject:genBuffer(name, verts)
+function VertArrayObject:genBuffer(name, verts, attribName)
 	self.buffers[name] = {}
 	self.buffers[name].handle = NSOpenGL.genBuffers(1)
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
 	NSOpenGL.bufferData("GL_ARRAY_BUFFER", "GL_FLOAT", verts, "GL_DYNAMIC_DRAW")
 	NSOpenGL.vertexAttribPointer(self.nextAttribPointer, 3, "GL_FLOAT", false)
 
-	self.buffers[name].location = self.nextAttribPointer
-	self.nextAttribPointer = self.nextAttribPointer + 1
+	self.buffers[name].location = NSOpenGL.getAttribLocation(self.program, attribName)
 end
 
 
