@@ -20,6 +20,7 @@
 		2C20E892178FE57500B53137 /* LuaMainWindow.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E891178FE57500B53137 /* LuaMainWindow.lua */; };
 		2C20E894178FE9A100B53137 /* LuaAppDelegate.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */; };
 		2C20E897178FEAD100B53137 /* LDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20E896178FEAD100B53137 /* LDUtilities.m */; };
+		2C3FD45217A62E5100D1240A /* LDApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FD45117A62E5100D1240A /* LDApplication.m */; };
 		2C4E2D6717A13338001641A7 /* LuaOpenGLFrustum.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */; };
 		2C5AB3B1179D2E6B004B8150 /* flat.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3A8179D2CDB004B8150 /* flat.vert */; };
 		2C5AB3B2179D2E6B004B8150 /* flat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3AF179D2CE7004B8150 /* flat.frag */; };
@@ -102,6 +103,8 @@
 		2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaAppDelegate.lua; sourceTree = "<group>"; };
 		2C20E895178FEAD100B53137 /* LDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDUtilities.h; sourceTree = "<group>"; };
 		2C20E896178FEAD100B53137 /* LDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDUtilities.m; sourceTree = "<group>"; };
+		2C3FD45017A62E5100D1240A /* LDApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDApplication.h; sourceTree = "<group>"; };
+		2C3FD45117A62E5100D1240A /* LDApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDApplication.m; sourceTree = "<group>"; };
 		2C4E2D6617A13338001641A7 /* LuaOpenGLFrustum.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLFrustum.lua; sourceTree = "<group>"; };
 		2C5AB3A8179D2CDB004B8150 /* flat.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flat.vert; sourceTree = "<group>"; };
 		2C5AB3AF179D2CE7004B8150 /* flat.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flat.frag; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 		2CC69BA31795167E00737D7D /* API Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2C3FD45017A62E5100D1240A /* LDApplication.h */,
+				2C3FD45117A62E5100D1240A /* LDApplication.m */,
 				2CC69B9B1795167900737D7D /* LDScreen.h */,
 				2CC69B9C1795167900737D7D /* LDScreen.m */,
 				2CC69BA61795577900737D7D /* LDFileManager.h */,
@@ -433,6 +438,7 @@
 				2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */,
 				2C08FC6517A2993700AC17C4 /* LDEvent.m in Sources */,
 				2C697C8D17A3AD0C004C79C6 /* LDMenu.m in Sources */,
+				2C3FD45217A62E5100D1240A /* LDApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

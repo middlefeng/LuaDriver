@@ -18,3 +18,9 @@ end
 
 
 
+
+function LDAppDelegate:applicationShouldHandleReopen(theApp, flag)
+	local window = self:getMainWindow()
+	window:makeKeyAndOrderFront(self)
+	return true
+end

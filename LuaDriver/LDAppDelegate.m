@@ -11,6 +11,7 @@
 #import "LDUtilities.h"
 
 #import "LDMainWindow.h"
+#import "LDApplication.h"
 
 #import "lua.h"
 #import "lualib.h"
@@ -91,9 +92,20 @@ static const luaL_Reg metatable[] = {
 
 
 
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+- (BOOL)applicationShouldHandleReopen:(NSApplication*)theApp
+					hasVisibleWindows:(BOOL)flag
 {
-	return YES;
+	[self createUserData:g_L];
+	[LDUtilities prepCall:g_L onMethod:@"applicationShouldHandleReopen"
+				 onObject:self];
+	newLuaObjectOfApplication(g_L, theApp);
+	lua_pushboolean(g_L, flag);
+	lua_call(g_L, 3, 0);
+	
+	bool result = lua_toboolean(g_L, -1);
+	lua_pop(g_L, 1);
+	
+	return result;
 }
 
 
