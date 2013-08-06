@@ -17,6 +17,8 @@
 #import "LDBundle.h"
 #import "LDOpenGL.h"
 #import "LDEvent.h"
+#import "LDImage.h"
+#import "LDOpenPanel.h"
 
 #import "LDUtilities.h"
 
@@ -67,6 +69,8 @@ int pmain(lua_State* L)
 	init_LDBundle(L);
 	init_LDOpenGL(L);
 	init_LDEvent(L);
+	init_LDImage(L);
+	init_LDOpenPanel(L);
 	
 	const char** luaClass = luaClassFiles;
 	while (*luaClass) {

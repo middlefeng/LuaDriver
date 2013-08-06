@@ -110,6 +110,16 @@ static const luaL_Reg metatable[] = {
 
 
 
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+	[self createUserData:g_L];
+	[LDUtilities prepCall:g_L onMethod:@"applicationWillTerminate"
+				 onObject:self];
+	lua_call(g_L, 1, 0);
+}
+
+
+
 
 
 static int app_delegate_main_window(lua_State* L)

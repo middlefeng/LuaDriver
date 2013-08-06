@@ -47,7 +47,15 @@ static int ld_opengl_compileShader(lua_State*);
 static int ld_opengl_attachShader(lua_State*);
 static int ld_opengl_getUniformLocation(lua_State*);
 static int ld_opengl_uniformMatrix(lua_State*);
+static int ld_opengl_uniform1i(lua_State*);
 static int ld_opengl_uniform(lua_State*);
+
+static int ld_opengl_activeTexture(lua_State*);
+static int ld_opengl_genTextures(lua_State*);
+static int ld_opengl_deleteTextures(lua_State*);
+static int ld_opengl_bindTexture(lua_State*);
+static int ld_opengl_texImage2D(lua_State*);
+static int ld_opengl_texParameter(lua_State*);
 
 static int ld_opengl_getError(lua_State*);
 static int ld_opengl_enable(lua_State*);
@@ -90,7 +98,15 @@ static const luaL_Reg LDOpenGLFuncs[] = {
 	{ "attachShader", ld_opengl_attachShader },
 	{ "getUniformLocation", ld_opengl_getUniformLocation },
 	{ "uniformMatrix", ld_opengl_uniformMatrix },
+	{ "uniform1i", ld_opengl_uniform1i },
 	{ "uniform", ld_opengl_uniform },
+	
+	{ "activeTexture", ld_opengl_activeTexture },
+	{ "genTextures", ld_opengl_genTextures },
+	{ "deleteTextures", ld_opengl_deleteTextures },
+	{ "bindTexture", ld_opengl_bindTexture },
+	{ "texImage2D", ld_opengl_texImage2D },
+	{ "texParameter", ld_opengl_texParameter },
 
 	{ "getError", ld_opengl_getError },
 	{ "enable", ld_opengl_enable },
@@ -608,6 +624,18 @@ static int ld_opengl_uniformMatrix(lua_State* L)
 
 
 
+static int ld_opengl_uniform1i(lua_State* L)
+{
+	GLint loc = (GLint)luaL_checkinteger(L, 1);
+	GLint v0 = (GLint)luaL_checkinteger(L, 2);
+	lua_pop(L, 2);
+
+	glUniform1i(loc, v0);
+	return 0;
+}
+
+
+
 static int ld_opengl_uniform(lua_State* L)
 {
 	GLint loc = (GLint)luaL_checkinteger(L, 1);
@@ -757,6 +785,229 @@ static int ld_opengl_blendFunc(lua_State* L)
 	
 	lua_pop(L, 2);
 	glBlendFunc(sfactor, dfactor);
+	return 0;
+}
+
+
+
+
+static int ld_opengl_activeTexture(lua_State* L)
+{
+	unsigned int i = luaL_checkunsigned(L, 1);
+	lua_pop(L, 1);
+	
+	GLenum activated = GL_TEXTURE0 + i;
+	glActiveTexture(activated);
+	return 0;
+}
+
+
+
+const char* sInternalFormatNames[] = {
+	"GL_ALPHA", "GL_ALPHA4", "GL_ALPHA8, GL_ALPHA12", "GL_ALPHA16",
+    "GL_LUMINANCE", "GL_LUMINANCE4", "GL_LUMINANCE8", "GL_LUMINANCE12",
+	"GL_LUMINANCE16", "GL_LUMINANCE_ALPHA", "GL_LUMINANCE4_ALPHA4",
+	"GL_LUMINANCE6_ALPHA2", "GL_LUMINANCE8_ALPHA8", "GL_LUMINANCE12_ALPHA4",
+	"GL_LUMINANCE12_ALPHA12", "GL_LUMINANCE16_ALPHA16", "GL_INTENSITY",
+	"GL_INTENSITY4", "GL_INTENSITY8", "GL_INTENSITY12", "GL_INTENSITY16",
+	"GL_R3_G3_B2", "GL_RGB", "GL_RGB4", "GL_RGB5", "GL_RGB8", "GL_RGB10",
+	"GL_RGB12", "GL_RGB16", "GL_RGBA", "GL_RGBA2", "GL_RGBA4", "GL_RGB5_A1",
+	"GL_RGBA8", "GL_RGB10_A2", "GL_RGBA12", "GL_RGBA16", 0
+};
+
+const GLenum sInternalFormats[] = {
+	GL_ALPHA, GL_ALPHA4, GL_ALPHA8, GL_ALPHA12,
+	GL_ALPHA16, GL_LUMINANCE, GL_LUMINANCE4, GL_LUMINANCE8, GL_LUMINANCE12,
+	GL_LUMINANCE16, GL_LUMINANCE_ALPHA, GL_LUMINANCE4_ALPHA4, GL_LUMINANCE6_ALPHA2,
+	GL_LUMINANCE8_ALPHA8, GL_LUMINANCE12_ALPHA4, GL_LUMINANCE12_ALPHA12,
+	GL_LUMINANCE16_ALPHA16, GL_INTENSITY, GL_INTENSITY4, GL_INTENSITY8, GL_INTENSITY12,
+	GL_INTENSITY16, GL_R3_G3_B2, GL_RGB, GL_RGB4, GL_RGB5, GL_RGB8, GL_RGB10, GL_RGB12,
+	GL_RGB16, GL_RGBA, GL_RGBA2, GL_RGBA4, GL_RGB5_A1, GL_RGBA8, GL_RGB10_A2, GL_RGBA12,
+	GL_RGBA16
+};
+
+const char* sPixelFormatNames[] = {
+	"GL_COLOR_INDEX", "GL_RED", "GL_GREEN", "GL_BLUE", "GL_ALPHA", "GL_RGB",
+	"GL_BGR", "GL_RGBA", "GL_BGRA", "GL_LUMINANCE", "GL_LUMINANCE_ALPHA", 0
+};
+
+const GLenum sPixelFormats[] = {
+	GL_COLOR_INDEX, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_BGR, GL_RGBA, GL_BGRA,
+	GL_LUMINANCE, GL_LUMINANCE_ALPHA
+};
+
+const char* sPixelTypeNames[] = {
+	"GL_UNSIGNED_BYTE", "GL_BYTE", "GL_BITMAP", "GL_UNSIGNED_SHORT", "GL_SHORT",
+	"GL_UNSIGNED_INT", "GL_INT", "GL_FLOAT", "GL_UNSIGNED_BYTE_3_3_2",
+	"GL_UNSIGNED_BYTE_2_3_3_REV", "GL_UNSIGNED_SHORT_5_6_5", "GL_UNSIGNED_SHORT_5_6_5_REV",
+	"GL_UNSIGNED_SHORT_4_4_4_4", "GL_UNSIGNED_SHORT_4_4_4_4_REV", "GL_UNSIGNED_SHORT_5_5_5_1",
+	"GL_UNSIGNED_SHORT_1_5_5_5_REV", "GL_UNSIGNED_INT_8_8_8_8", "GL_UNSIGNED_INT_8_8_8_8_REV",
+	"GL_UNSIGNED_INT_10_10_10_2", "GL_UNSIGNED_INT_2_10_10_10_REV", 0
+};
+
+const GLenum sPixelTypes[] = {
+	GL_UNSIGNED_BYTE, GL_BYTE, GL_BITMAP, GL_UNSIGNED_SHORT, GL_SHORT,
+	GL_UNSIGNED_INT, GL_INT, GL_FLOAT, GL_UNSIGNED_BYTE_3_3_2,
+	GL_UNSIGNED_BYTE_2_3_3_REV, GL_UNSIGNED_SHORT_5_6_5, GL_UNSIGNED_SHORT_5_6_5_REV,
+	GL_UNSIGNED_SHORT_4_4_4_4, GL_UNSIGNED_SHORT_4_4_4_4_REV, GL_UNSIGNED_SHORT_5_5_5_1,
+	GL_UNSIGNED_SHORT_1_5_5_5_REV,  GL_UNSIGNED_INT_8_8_8_8, GL_UNSIGNED_INT_8_8_8_8_REV,
+	GL_UNSIGNED_INT_10_10_10_2, GL_UNSIGNED_INT_2_10_10_10_REV
+};
+
+const char* sTargetNames[] = {
+	"GL_TEXTURE_1D",
+	"GL_TEXTURE_2D",
+	"GL_TEXTURE_3D",
+	"GL_PROXY_TEXTURE_1D",
+	"GL_PROXY_TEXTURE_2D",
+	"GL_PROXY_TEXTURE_3D", 0
+};
+
+const GLenum sTargets[] = {
+	GL_TEXTURE_1D,
+	GL_TEXTURE_2D,
+	GL_TEXTURE_3D,
+	GL_PROXY_TEXTURE_1D,
+	GL_PROXY_TEXTURE_2D,
+	GL_PROXY_TEXTURE_3D
+};
+
+static int ld_opengl_texImage2D(lua_State* L)
+{
+	const char* targetName = luaL_checkstring(L, 1);
+	GLint level = (GLint)luaL_checkinteger(L, 2);
+	const char* internalFormatName = luaL_checkstring(L, 3);
+	GLint border = (GLint)luaL_checkinteger(L, 4);
+	const char* formatName = luaL_checkstring(L, 5);
+	const char* typeName = luaL_checkstring(L, 6);
+	NSImage* image = [LDUtilities userDataFromLuaTable:L atIndex:7];
+	
+	GLenum target = ld_opengl_name_to_enum(sTargetNames, sTargets, targetName);
+	GLenum internalFormat = ld_opengl_name_to_enum(sInternalFormatNames,
+												   sInternalFormats,
+												   internalFormatName);
+	GLenum format = ld_opengl_name_to_enum(sPixelFormatNames,
+										   sPixelFormats,
+										   formatName);
+	GLenum type = ld_opengl_name_to_enum(sPixelTypeNames,
+										 sPixelTypes, typeName);
+	
+	
+	NSBitmapImageRep* rep = [[image representations] objectAtIndex:0];
+	void* bitmapData = [rep bitmapData];
+	
+	glTexImage2D(target, level, internalFormat,
+				 (GLsizei)[rep pixelsWide], (GLsizei)[rep pixelsHigh],
+				 border, format, type, bitmapData);
+	
+	lua_pop(L, 6);
+	return 0;
+}
+
+
+
+static int ld_opengl_genTextures(lua_State* L)
+{
+	GLsizei size = (GLsizei)luaL_checkinteger(L, 1);
+	lua_pop(L, 1);
+	if (!size)
+		return 0;
+	
+	GLuint* textures = malloc(sizeof(GLuint) * size);
+	glGenTextures(size, textures);
+	for (GLsizei i = 0; i < size; ++i)
+		lua_pushunsigned(L, textures[i]);
+	
+	free(textures);
+	return size;
+}
+
+
+
+static int ld_opengl_deleteTextures(lua_State* L)
+{
+	int count = lua_gettop(L);
+	GLuint* textures = malloc(sizeof(GLuint) * count);
+	for (int i = 0; i < count; ++i)
+		textures[i] = luaL_checkunsigned(L, i + 1);
+	
+	lua_pop(L, lua_gettop(L));
+	glDeleteTextures(count, textures);
+	free(textures);
+	return 0;
+}
+
+
+
+static int ld_opengl_bindTexture(lua_State* L)
+{
+	const char* name = luaL_checkstring(L, 1);
+	GLuint texture = luaL_checkunsigned(L, 2);
+	
+	GLenum target = ld_opengl_name_to_enum(sTargetNames,
+										   sTargets, name);
+	lua_pop(L, 2);
+	
+	glBindTexture(target, texture);
+	return 0;
+}
+
+
+
+static const char* sTexParamNames[] = {
+	"GL_TEXTURE_MIN_FILTER", "GL_TEXTURE_MAG_FILTER", "GL_TEXTURE_MIN_LOD",
+    "GL_TEXTURE_MAX_LOD", "GL_TEXTURE_BASE_LEVEL", "GL_TEXTURE_MAX_LEVEL",
+	"GL_TEXTURE_WRAP_S", "GL_TEXTURE_WRAP_T", "GL_TEXTURE_WRAP_R",
+	"GL_TEXTURE_BORDER_COLOR", "GL_TEXTURE_PRIORITY", 0
+};
+
+static const GLenum sTexParams[] = {
+	GL_TEXTURE_MIN_FILTER, GL_TEXTURE_MAG_FILTER, GL_TEXTURE_MIN_LOD,
+    GL_TEXTURE_MAX_LOD, GL_TEXTURE_BASE_LEVEL, GL_TEXTURE_MAX_LEVEL,
+	GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T,
+	GL_TEXTURE_WRAP_R, GL_TEXTURE_BORDER_COLOR, GL_TEXTURE_PRIORITY
+};
+
+static const char* sTexParamValueNames[] = {
+	"GL_NEAREST", "GL_LINEAR", "GL_NEAREST_MIPMAP_NEAREST",
+	"GL_LINEAR_MIPMAP_NEAREST", "GL_NEAREST_MIPMAP_LINEAR",
+	"GL_LINEAR_MIPMAP_LINEAR", "GL_CLAMP", "GL_CLAMP_TO_EDGE",
+	"GL_REPEAT", 0
+};
+
+static const GLenum sTexParamValues[] = {
+	GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST,
+	GL_LINEAR_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR,
+	GL_LINEAR_MIPMAP_LINEAR, GL_CLAMP, GL_CLAMP_TO_EDGE,
+	GL_REPEAT
+};
+
+static int ld_opengl_texParameter(lua_State* L)
+{
+	const char* targetName = luaL_checkstring(L, 1);
+	const char* paramName = luaL_checkstring(L, 2);
+	
+	GLenum target = ld_opengl_name_to_enum(sTargetNames, sTargets, targetName);
+	GLenum param = ld_opengl_name_to_enum(sTexParamNames, sTexParams, paramName);
+	switch (param) {
+		case GL_TEXTURE_MIN_LOD:
+		case GL_TEXTURE_MAX_LOD:
+		case GL_TEXTURE_BASE_LEVEL:
+		case GL_TEXTURE_MAX_LEVEL:
+		case GL_TEXTURE_PRIORITY: {
+			GLfloat value = luaL_checknumber(L, 3);
+			glTexParameterf(target, param, value);
+			break;
+		}
+		default: {
+			const char* valueName = luaL_checkstring(L, 3);
+			GLenum value = ld_opengl_name_to_enum(sTexParamValueNames,
+												  sTexParamValues, valueName);
+			glTexParameterf(target, param, value);
+		}
+	}
+	
+	lua_pop(L, 3);
 	return 0;
 }
 

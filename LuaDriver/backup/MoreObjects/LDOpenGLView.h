@@ -18,14 +18,9 @@
 
 
 
-struct lua_State;
-
-
-
 @property int userDataRef;
 
 
-- (void)createUserData:(struct lua_State*)L;
 - (IBAction)drawObjectType:(id)sender;
 
 

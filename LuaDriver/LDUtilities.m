@@ -213,7 +213,10 @@ extern lua_State* g_L;
 
 + (id) userDataFromLuaTable:(struct lua_State*)L atIndex:(int)index
 {
+	luaL_checktype(L, index, LUA_TTABLE);
 	lua_getfield(L, index, k_userData);
+	luaL_checktype(L, -1, LUA_TUSERDATA);
+	
 	NSObject** o = lua_touserdata(L, -1);
 	NSObject* r = *o;
 	lua_pop(L, 1);

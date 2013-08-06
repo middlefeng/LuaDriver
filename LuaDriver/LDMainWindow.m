@@ -25,12 +25,13 @@ const char* k_userData;
 
 static int ld_main_window_set_title(lua_State* L);
 static int ld_main_window_make_key_and_order_front(lua_State* L);
-
+static int ld_main_window_get_opengl_view(lua_State* L);
 
 
 static const luaL_Reg metatable[] = {
 	{ "setTitle", ld_main_window_set_title },
 	{ "makeKeyAndOrderFront", ld_main_window_make_key_and_order_front },
+	{ "getOpenGLView", ld_main_window_get_opengl_view },
 	{ NULL, NULL },
 };
 
@@ -111,13 +112,27 @@ static int ld_main_window_set_title(lua_State* L)
 
 static int ld_main_window_make_key_and_order_front(lua_State* L)
 {
-	LDMainWindow* window = [LDUtilities userDataFromLuaTable:L atIndex:1];
-	id sender = [LDUtilities userDataFromLuaTable:L atIndex:2];
+	LDMainWindow* window  = [LDUtilities userDataFromLuaTable:L atIndex:1];
+	id sender = nil;
+	if (lua_gettop(L) == 2 && lua_istable(L, 2))
+		[LDUtilities userDataFromLuaTable:L atIndex:2];
 	
 	[window makeKeyAndOrderFront:sender];
 	[[window openGLView] becomeFirstResponder];
-	lua_pop(L, 2);
+	lua_pop(L, lua_gettop(L));
 	return 0;
+}
+
+
+
+
+static int ld_main_window_get_opengl_view(lua_State* L)
+{
+	LDMainWindow* window = [LDUtilities userDataFromLuaTable:L atIndex:1];
+	LDOpenGLView* view = [window openGLView];
+	[view createUserData:L];
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (int)[view userDataRef]);
+	return 1;
 }
 
 

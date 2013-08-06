@@ -35,11 +35,12 @@ local TriangleBatch = {}
 
 
 function LDOpenGLView:prepareOpenGL()
-	self:initializeShaders()
-	
 	NSOpenGL.clearColor(0.7, 0.7, 0.7, 1.0)
-	NSOpenGL.enable("GL_DEPTH_TEST")
 	
+	self:initializeShaders()
+
+	NSOpenGL.enable("GL_DEPTH_TEST")
+
 	self.cameraFrame = OpenGLFrame:new()
 	self.cameraFrame:moveForward(-15.0)
 	self.objectFrame = OpenGLFrame:new()
@@ -48,7 +49,8 @@ function LDOpenGLView:prepareOpenGL()
 	--self.objectFrame:rotateWorld(-38.0 * 3.14 / 180, { x = 0, y = 1, z = 0 });
 	--self.objectFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
 	--self.cameraFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
-	--self:initializeObject()
+
+	self:initializeObject()
 
 	local frame = self:getFrame()
 	self:setScene(frame)
@@ -59,21 +61,21 @@ end
 function LDOpenGLView:initializeShaders()
 	local vertShader = NSOpenGL.createShader("GL_VERTEX_SHADER")
 	local fragShader = NSOpenGL.createShader("GL_FRAGMENT_SHADER")
-	local vertSrc = LDUtilities.loadShaderSource("texture.vert")
-	local fragSrc = LDUtilities.loadShaderSource("texture.frag")
+	local vertSrc = LDUtilities.loadShaderSource("flat.vert")
+	local fragSrc = LDUtilities.loadShaderSource("flat.frag")
 
-	NSOpenGL.shaderSource(vertShader, vertSrc)
-	NSOpenGL.compileShader(vertShader)
+	NSOpenGL.shaderSource(1, vertSrc)
+	NSOpenGL.compileShader(1)
 
-	NSOpenGL.shaderSource(fragShader, fragSrc)
-	NSOpenGL.compileShader(fragShader)
-	
+	NSOpenGL.shaderSource(2, fragSrc)
+	NSOpenGL.compileShader(2)
+
 	local program = NSOpenGL.createProgram()
-	NSOpenGL.attachShader(program, vertShader)
-	NSOpenGL.attachShader(program, fragShader)
+	NSOpenGL.attachShader(program, 1)
+	NSOpenGL.attachShader(program, 2)
 	NSOpenGL.linkProgram(program)
 	NSOpenGL.useProgram(program)
-	
+
 	NSOpenGL.deleteShader(vertShader)
 	NSOpenGL.deleteShader(fragShader)
 
@@ -82,27 +84,8 @@ end
 
 
 
-function LDOpenGLView:initializeTexture(image)
-	self.texture = NSOpenGL.genTextures(1)
-	NSOpenGL.activeTexture(0)
-	NSOpenGL.bindTexture("GL_TEXTURE_2D", self.texture)
-	NSOpenGL.texImage2D("GL_TEXTURE_2D", 0, "GL_RGBA", 0,
-						"GL_RGBA", "GL_UNSIGNED_BYTE", image)
 
-	NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_MIN_FILTER", "GL_LINEAR")
-    NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_MAG_FILTER", "GL_LINEAR" )
-    NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_WRAP_S", "GL_CLAMP_TO_EDGE")
-    NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_WRAP_T", "GL_CLAMP_TO_EDGE")
-
-	local texLoc = NSOpenGL.getUniformLocation(self.program, "sTex")
-	NSOpenGL.uniform1i(texLoc, 0)
-end
-
-
-
-
-function LDOpenGLView:initializeObject(imageSize)
-	--[[
+function LDOpenGLView:initializeObject()
 	self.torus = TriangleBatch:begin()
 	self.torus.program = self.program
 	self.sphere = TriangleBatch:begin()
@@ -110,42 +93,6 @@ function LDOpenGLView:initializeObject(imageSize)
 	makeTorus(self.torus, 3.0, 0.75, 15, 15);
 	makeSphere(self.sphere, 3, 10, 20)
 	self.currentObject = self.torus
-	]]--
-	
-	local aspectRatio = imageSize.width / imageSize.height
-
-	local aspectRatioW, aspectRatioH = 1, 1
-	if aspectRatio > 1 then
-		aspectRatioH = aspectRatio
-	else
-		aspectRatioW = aspectRatio
-	end
-
-	local vVerts = {
-		{
-			{ -4 * aspectRatioW, -4 / aspectRatioH, 0 },
-			{ 4 * aspectRatioW, -4 / aspectRatioH, 0 },
-			{ -4 * aspectRatioW, 4 / aspectRatioH, 0 }
-		},
-		{
-			{ -4 * aspectRatioW, 4 / aspectRatioH, 0 },
-			{ 4 * aspectRatioW, -4 / aspectRatioH, 0 },
-			{ 4 * aspectRatioW, 4 / aspectRatioH, 0 }
-		}
-	}
-
-	local vTexture = {
-		{ { 1, 1 }, { 0, 1 }, { 1, 0 } },
-		{ { 1, 0 }, { 0, 1 }, { 0, 0 } }
-	}
-
-	self.quad = TriangleBatch:begin()
-	self.quad.program = self.program
-	self.quad:addTriangle(vVerts[1], _, vTexture[1])
-	self.quad:addTriangle(vVerts[2], _, vTexture[2])
-	self.quad:endBatch()
-
-	print("GL state", NSOpenGL.getError(), self.quad)
 end
 
 
@@ -171,11 +118,6 @@ function LDOpenGLView:drawRect(dirtyRect)
 	local colorLocation = NSOpenGL.getUniformLocation(self.program, "vColor")
 	NSOpenGL.uniform(colorLocation, { 0, 1, 0, 1 })
 
-	if self.quad then
-		self.quad:draw()
-	end
-
-	--[[
 	self.currentObject:draw()
 
 	
@@ -195,7 +137,6 @@ function LDOpenGLView:drawRect(dirtyRect)
     NSOpenGL.lineWidth(1);
     NSOpenGL.disable("GL_BLEND");
     NSOpenGL.disable("GL_LINE_SMOOTH");
-    ]]--
 end
 
 
@@ -281,15 +222,7 @@ end
 
 
 function LDOpenGLView:dealloc()
-	if self.program then
-		NSOpenGL.deleteProgram(self.program)
-		self.program = nil
-	end
-
-	if self.texture then
-		NSOpenGL.deleteTextures(self.texture)
-		self.texture = nil
-	end
+	NSOpenGL.deleteProgram(self.program)
 end
 
 
@@ -345,7 +278,7 @@ end
 
 function TriangleBatch:addTriangle(verts, normals, texCoords)
 	local e = 0.0001
---	OpenGLMath.normalizeArray(normals)
+	OpenGLMath.normalizeArray(normals)
 
 	for iVertex = 1, 3 do
 
@@ -354,8 +287,8 @@ function TriangleBatch:addTriangle(verts, normals, texCoords)
 		-- For existing one, add index only
         for iMatch = 1, #self.verts do
             if vectorClose(self.verts[iMatch], verts[iVertex], e) and
---             vectorClose(self.normals[iMatch], normals[iVertex], e) and
-        	   vectorClose(self.texCoords[iMatch], texCoords[iVertex], e) then
+               vectorClose(self.normals[iMatch], normals[iVertex], e) and
+               vectorClose(self.texCoords[iMatch], texCoords[iVertex], e) then
                 self.indexes[#self.indexes + 1] = { iMatch - 1 }
                 bVertExist = true
                 break
@@ -365,8 +298,8 @@ function TriangleBatch:addTriangle(verts, normals, texCoords)
         -- No match for this vertex, add to end of list
         if not bVertExist then
            	self.verts[#self.verts + 1] = verts[iVertex]
---          self.normals[#self.normals + 1] = normals[iVertex]
-	        self.texCoords[#self.texCoords + 1] = texCoords[iVertex]
+            self.normals[#self.normals + 1] = normals[iVertex]
+            self.texCoords[#self.texCoords + 1] = texCoords[iVertex]
             self.indexes[#self.indexes + 1] = { #self.verts - 1 }
         end
     end
@@ -381,7 +314,7 @@ function TriangleBatch:endBatch()
 
 	self.vertObject:genBuffer("vert", self.verts, "vVertex")
 	--self.vertObject:genBuffer("norm", self.normals)
-	self.vertObject:genBuffer("texC", self.texCoords, "vTexture")
+	--self.vertObject:genBuffer("texC", self.texCoords)
 
 	self.indexBuffer = NSOpenGL.genBuffers(1)
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
@@ -399,7 +332,7 @@ function TriangleBatch:draw()
 
 	self.vertObject:bindBuffer("vert")
 	--self.vertObject:bindBuffer("norm")
-	self.vertObject:bindBuffer("texC")
+	--self.vertObject:bindBuffer("texC")
 
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
 	NSOpenGL.drawElements("GL_TRIANGLES", #self.indexes, "GL_UNSIGNED_SHORT");
@@ -454,10 +387,9 @@ end
 function VertArrayObject:genBuffer(name, verts, attribName)
 	self.buffers[name] = {}
 	self.buffers[name].handle = NSOpenGL.genBuffers(1)
-	self.buffers[name].stride = #verts[1]
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
 	NSOpenGL.bufferData("GL_ARRAY_BUFFER", "GL_FLOAT", verts, "GL_DYNAMIC_DRAW")
-	NSOpenGL.vertexAttribPointer(self.nextAttribPointer, self.buffers[name].stride, "GL_FLOAT", false)
+	NSOpenGL.vertexAttribPointer(self.nextAttribPointer, 3, "GL_FLOAT", false)
 
 	self.buffers[name].location = NSOpenGL.getAttribLocation(self.program, attribName)
 end
@@ -468,7 +400,7 @@ end
 function VertArrayObject:bindBuffer(name)
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
 	NSOpenGL.enableVertexAttribArray(self.buffers[name].location);
-	NSOpenGL.vertexAttribPointer(self.buffers[name].location, self.buffers[name].stride, "GL_FLOAT", false)
+	NSOpenGL.vertexAttribPointer(self.buffers[name].location, 3, "GL_FLOAT", false)
 end
 
 

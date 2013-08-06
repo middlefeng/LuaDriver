@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C08FC6517A2993700AC17C4 /* LDEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C08FC6417A2993700AC17C4 /* LDEvent.m */; };
+		2C11B98A17A75DD8002E774E /* LDURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C11B98917A75DD8002E774E /* LDURL.m */; };
 		2C1CB007179F677F00C9103C /* LuaOpenGLFrame.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */; };
 		2C1CB00E179F713E00C9103C /* LuaOpenGLMath.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */; };
 		2C20E85C178FCDDF00B53137 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C20E85B178FCDDF00B53137 /* Cocoa.framework */; };
@@ -33,6 +34,10 @@
 		2C8489F7179985020018C689 /* LuaOpenGLView.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C8489F6179985020018C689 /* LuaOpenGLView.lua */; };
 		2C8489FC179988EB0018C689 /* LDOpenGL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8489FB179988EB0018C689 /* LDOpenGL.m */; };
 		2C8489FE17998B560018C689 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8489FD17998B560018C689 /* OpenGL.framework */; };
+		2CAAF19217A89D2700F39B1F /* texture.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2CAAF18917A89C1E00F39B1F /* texture.frag */; };
+		2CAAF19317A89D2700F39B1F /* texture.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2CAAF18A17A89C1E00F39B1F /* texture.vert */; };
+		2CB658AD17A65F6F0041DF80 /* LDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB658AC17A65F6F0041DF80 /* LDImage.m */; };
+		2CB658B517A671760041DF80 /* LDOpenPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB658B417A671750041DF80 /* LDOpenPanel.m */; };
 		2CC69B9D1795167900737D7D /* LDScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC69B9C1795167900737D7D /* LDScreen.m */; };
 		2CC69BA81795577900737D7D /* LDFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC69BA71795577900737D7D /* LDFileManager.m */; };
 		2CCEDAC3179613A800B0D8E4 /* LDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEDAC2179613A800B0D8E4 /* LDTextView.m */; };
@@ -82,6 +87,8 @@
 /* Begin PBXFileReference section */
 		2C08FC6317A2993700AC17C4 /* LDEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDEvent.h; sourceTree = "<group>"; };
 		2C08FC6417A2993700AC17C4 /* LDEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDEvent.m; sourceTree = "<group>"; };
+		2C11B98817A75DD8002E774E /* LDURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDURL.h; sourceTree = "<group>"; };
+		2C11B98917A75DD8002E774E /* LDURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDURL.m; sourceTree = "<group>"; };
 		2C1CB006179F677F00C9103C /* LuaOpenGLFrame.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLFrame.lua; sourceTree = "<group>"; };
 		2C1CB00D179F713E00C9103C /* LuaOpenGLMath.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLMath.lua; sourceTree = "<group>"; };
 		2C20E858178FCDDF00B53137 /* LuaDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +128,12 @@
 		2C8489FA179988EB0018C689 /* LDOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDOpenGL.h; sourceTree = "<group>"; };
 		2C8489FB179988EB0018C689 /* LDOpenGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDOpenGL.m; sourceTree = "<group>"; };
 		2C8489FD17998B560018C689 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		2CAAF18917A89C1E00F39B1F /* texture.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture.frag; sourceTree = "<group>"; };
+		2CAAF18A17A89C1E00F39B1F /* texture.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture.vert; sourceTree = "<group>"; };
+		2CB658AB17A65F6F0041DF80 /* LDImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDImage.h; sourceTree = "<group>"; };
+		2CB658AC17A65F6F0041DF80 /* LDImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDImage.m; sourceTree = "<group>"; };
+		2CB658B317A671750041DF80 /* LDOpenPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDOpenPanel.h; sourceTree = "<group>"; };
+		2CB658B417A671750041DF80 /* LDOpenPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDOpenPanel.m; sourceTree = "<group>"; };
 		2CC69B9B1795167900737D7D /* LDScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDScreen.h; sourceTree = "<group>"; };
 		2CC69B9C1795167900737D7D /* LDScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDScreen.m; sourceTree = "<group>"; };
 		2CC69BA61795577900737D7D /* LDFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDFileManager.h; sourceTree = "<group>"; };
@@ -254,6 +267,8 @@
 				2C6CEC9C179BB8A50084D4FD /* fragShader.frag */,
 				2C5AB3A8179D2CDB004B8150 /* flat.vert */,
 				2C5AB3AF179D2CE7004B8150 /* flat.frag */,
+				2CAAF18917A89C1E00F39B1F /* texture.frag */,
+				2CAAF18A17A89C1E00F39B1F /* texture.vert */,
 			);
 			name = Shaders;
 			sourceTree = "<group>";
@@ -279,6 +294,8 @@
 				2CC69B9C1795167900737D7D /* LDScreen.m */,
 				2CC69BA61795577900737D7D /* LDFileManager.h */,
 				2CC69BA71795577900737D7D /* LDFileManager.m */,
+				2CB658AB17A65F6F0041DF80 /* LDImage.h */,
+				2CB658AC17A65F6F0041DF80 /* LDImage.m */,
 				2C8489FA179988EB0018C689 /* LDOpenGL.h */,
 				2C8489FB179988EB0018C689 /* LDOpenGL.m */,
 				2CD73F66179A5DA10049642E /* LDBundle.h */,
@@ -287,6 +304,10 @@
 				2C08FC6417A2993700AC17C4 /* LDEvent.m */,
 				2C697C8B17A3AD0C004C79C6 /* LDMenu.h */,
 				2C697C8C17A3AD0C004C79C6 /* LDMenu.m */,
+				2CB658B317A671750041DF80 /* LDOpenPanel.h */,
+				2CB658B417A671750041DF80 /* LDOpenPanel.m */,
+				2C11B98817A75DD8002E774E /* LDURL.h */,
+				2C11B98917A75DD8002E774E /* LDURL.m */,
 				2C20E895178FEAD100B53137 /* LDUtilities.h */,
 				2C20E896178FEAD100B53137 /* LDUtilities.m */,
 			);
@@ -400,6 +421,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CAAF19217A89D2700F39B1F /* texture.frag in Resources */,
+				2CAAF19317A89D2700F39B1F /* texture.vert in Resources */,
 				2C5AB3B1179D2E6B004B8150 /* flat.vert in Resources */,
 				2C5AB3B2179D2E6B004B8150 /* flat.frag in Resources */,
 				2C6CECA6179BB8C60084D4FD /* fragShader.frag in Resources */,
@@ -439,6 +462,9 @@
 				2C08FC6517A2993700AC17C4 /* LDEvent.m in Sources */,
 				2C697C8D17A3AD0C004C79C6 /* LDMenu.m in Sources */,
 				2C3FD45217A62E5100D1240A /* LDApplication.m in Sources */,
+				2CB658AD17A65F6F0041DF80 /* LDImage.m in Sources */,
+				2CB658B517A671760041DF80 /* LDOpenPanel.m in Sources */,
+				2C11B98A17A75DD8002E774E /* LDURL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

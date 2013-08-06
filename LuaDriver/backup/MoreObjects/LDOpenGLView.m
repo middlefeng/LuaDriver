@@ -71,7 +71,6 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 			0
 		};
 		
-		[self setWantsBestResolutionOpenGLSurface:YES];
 		NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc]
 											initWithAttributes:attributes];
 		[self setPixelFormat:pixelFormat];

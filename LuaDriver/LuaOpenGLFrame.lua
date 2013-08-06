@@ -67,7 +67,6 @@ end
 
 function GLFrame:getMatrix(rotateOnly)
 	local xAxis = OpenGLMath.crossProduct(self.up, self.forward)
-
 	local matrix = { xAxis.x, xAxis.y, xAxis.z, 0,
 					 self.up.x, self.up.y, self.up.z, 0,
 					 self.forward.x, self.forward.y, self.forward.z, 0,
