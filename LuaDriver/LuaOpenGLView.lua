@@ -62,7 +62,6 @@ function LDOpenGLView:initializeShaders()
 		vert = LDUtilities.loadShaderSource("texture.vert"),
 		frag = LDUtilities.loadShaderSource("texture.frag"),
 	}
-
 	OpenGLShaderManager.loadShader("texture", shaderSrcs)
 	OpenGLShaderManager.useProgram("texture")
 end
@@ -159,7 +158,6 @@ function LDOpenGLView:drawRect(dirtyRect)
 
 	--[[
 	self.currentObject:draw()
-
 	
 	NSOpenGL.polygonOffset(-1, -0.2)
 	NSOpenGL.enable("GL_LINE_SMOOTH")
