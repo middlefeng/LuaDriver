@@ -40,6 +40,7 @@ end
 
 function ShaderManager.useProgram(name)
 	NSOpenGL.useProgram(ShaderManager.shaders[name])
+	ShaderManager.currentProgramName = name
 end
 
 

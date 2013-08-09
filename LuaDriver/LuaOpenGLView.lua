@@ -358,9 +358,9 @@ function TriangleBatch:endBatch()
 	self.vertObject = VertArrayObject:new()
 	self.vertObject.program = self.program
 
-	self.vertObject:genBuffer("vert", self.verts, "vVertex")
+	self.vertObject:genBuffer("vert", self.verts)
 	--self.vertObject:genBuffer("norm", self.normals)
-	self.vertObject:genBuffer("texC", self.texCoords, "vTexture")
+	self.vertObject:genBuffer("texC", self.texCoords)
 
 	self.indexBuffer = NSOpenGL.genBuffers(1)
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
@@ -374,11 +374,12 @@ end
 
 
 function TriangleBatch:draw()
-	self.vertObject:bind()
+	local progName = OpenGLShaderManager.currentProgramName
 
-	self.vertObject:bindBuffer("vert")
-	--self.vertObject:bindBuffer("norm")
-	self.vertObject:bindBuffer("texC")
+	self.vertObject:bind()
+	self.vertObject:bindBufferToAttrib("vert", progName, "vVertex")
+--	self.vertObject:bindBufferToAttrib("norm", progName, "vNorm")
+	self.vertObject:bindBufferToAttrib("texC", progName, "vTexture")
 
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
 	NSOpenGL.drawElements("GL_TRIANGLES", #self.indexes, "GL_UNSIGNED_SHORT");
@@ -430,23 +431,28 @@ end
 
 
 
-function VertArrayObject:genBuffer(name, verts, attribName)
+function VertArrayObject:genBuffer(name, verts, purpose, normalized)
+	purpose = purpose or "GL_DYNAMIC_DRAW"
+	normalized = normalized or false
+
 	self.buffers[name] = {}
 	self.buffers[name].handle = NSOpenGL.genBuffers(1)
 	self.buffers[name].stride = #verts[1]
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
-	NSOpenGL.bufferData("GL_ARRAY_BUFFER", "GL_FLOAT", verts, "GL_DYNAMIC_DRAW")
+	NSOpenGL.bufferData("GL_ARRAY_BUFFER", "GL_FLOAT", verts, purpose)
 
-	self.buffers[name].location = OpenGLShaderManager.getAttribLocation("texture", attribName)
+	self.buffers[name].normalized = normalized
 end
 
 
 
 
-function VertArrayObject:bindBuffer(name)
+function VertArrayObject:bindBufferToAttrib(name, progName, attribName)
+	local location = OpenGLShaderManager.getAttribLocation(progName, attribName)
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
-	NSOpenGL.enableVertexAttribArray(self.buffers[name].location);
-	NSOpenGL.vertexAttribPointer(self.buffers[name].location, self.buffers[name].stride, "GL_FLOAT", false)
+	NSOpenGL.enableVertexAttribArray(location);
+	NSOpenGL.vertexAttribPointer(location, self.buffers[name].stride, "GL_FLOAT",
+								 self.buffers[name].normalized)
 end
 
 
