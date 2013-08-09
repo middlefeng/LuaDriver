@@ -38,6 +38,7 @@
 		2CAAF19317A89D2700F39B1F /* texture.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2CAAF18A17A89C1E00F39B1F /* texture.vert */; };
 		2CB658AD17A65F6F0041DF80 /* LDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB658AC17A65F6F0041DF80 /* LDImage.m */; };
 		2CB658B517A671760041DF80 /* LDOpenPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB658B417A671750041DF80 /* LDOpenPanel.m */; };
+		2CC4B8C317B4692F002C0B80 /* LuaOpenGLShaderManager.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4B8C217B4692F002C0B80 /* LuaOpenGLShaderManager.lua */; };
 		2CC69B9D1795167900737D7D /* LDScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC69B9C1795167900737D7D /* LDScreen.m */; };
 		2CC69BA81795577900737D7D /* LDFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC69BA71795577900737D7D /* LDFileManager.m */; };
 		2CCEDAC3179613A800B0D8E4 /* LDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEDAC2179613A800B0D8E4 /* LDTextView.m */; };
@@ -134,6 +135,7 @@
 		2CB658AC17A65F6F0041DF80 /* LDImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDImage.m; sourceTree = "<group>"; };
 		2CB658B317A671750041DF80 /* LDOpenPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDOpenPanel.h; sourceTree = "<group>"; };
 		2CB658B417A671750041DF80 /* LDOpenPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDOpenPanel.m; sourceTree = "<group>"; };
+		2CC4B8C217B4692F002C0B80 /* LuaOpenGLShaderManager.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLShaderManager.lua; sourceTree = "<group>"; };
 		2CC69B9B1795167900737D7D /* LDScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDScreen.h; sourceTree = "<group>"; };
 		2CC69B9C1795167900737D7D /* LDScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDScreen.m; sourceTree = "<group>"; };
 		2CC69BA61795577900737D7D /* LDFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDFileManager.h; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				2C20E891178FE57500B53137 /* LuaMainWindow.lua */,
 				2CCEDAC917962A4500B0D8E4 /* LuaTextView.lua */,
 				2C8489F6179985020018C689 /* LuaOpenGLView.lua */,
+				2CC4B8C217B4692F002C0B80 /* LuaOpenGLShaderManager.lua */,
 				2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */,
 				2CCF144717A0CECF00477587 /* Math */,
 			);
@@ -438,6 +441,7 @@
 				2C1CB00E179F713E00C9103C /* LuaOpenGLMath.lua in Resources */,
 				2CCF144E17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua in Resources */,
 				2C4E2D6717A13338001641A7 /* LuaOpenGLFrustum.lua in Resources */,
+				2CC4B8C317B4692F002C0B80 /* LuaOpenGLShaderManager.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

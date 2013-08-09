@@ -18,6 +18,7 @@ path = nil
 local OpenGLMath = require "LuaOpenGLMath"
 local OpenGLFrame = require "LuaOpenGLFrame"
 local OpenGLFrustum = require "LuaOpenGLFrustum"
+local OpenGLShaderManager = require "LuaOpenGLShaderManager"
 local OpenGLTransPipeline = require "LuaOpenGLTransformPipeline"
 
 LDOpenGLView = {}
@@ -57,27 +58,13 @@ end
 
 
 function LDOpenGLView:initializeShaders()
-	local vertShader = NSOpenGL.createShader("GL_VERTEX_SHADER")
-	local fragShader = NSOpenGL.createShader("GL_FRAGMENT_SHADER")
-	local vertSrc = LDUtilities.loadShaderSource("texture.vert")
-	local fragSrc = LDUtilities.loadShaderSource("texture.frag")
+	local shaderSrcs = {
+		vert = LDUtilities.loadShaderSource("texture.vert"),
+		frag = LDUtilities.loadShaderSource("texture.frag"),
+	}
 
-	NSOpenGL.shaderSource(vertShader, vertSrc)
-	NSOpenGL.compileShader(vertShader)
-
-	NSOpenGL.shaderSource(fragShader, fragSrc)
-	NSOpenGL.compileShader(fragShader)
-	
-	local program = NSOpenGL.createProgram()
-	NSOpenGL.attachShader(program, vertShader)
-	NSOpenGL.attachShader(program, fragShader)
-	NSOpenGL.linkProgram(program)
-	NSOpenGL.useProgram(program)
-	
-	NSOpenGL.deleteShader(vertShader)
-	NSOpenGL.deleteShader(fragShader)
-
-	self.program = program
+	OpenGLShaderManager.loadShader("texture", shaderSrcs)
+	OpenGLShaderManager.useProgram("texture")
 end
 
 
@@ -94,8 +81,7 @@ function LDOpenGLView:initializeTexture(image)
     NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_WRAP_S", "GL_CLAMP_TO_EDGE")
     NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_WRAP_T", "GL_CLAMP_TO_EDGE")
 
-	local texLoc = NSOpenGL.getUniformLocation(self.program, "sTex")
-	NSOpenGL.uniform1i(texLoc, 0)
+    OpenGLShaderManager.setTexture("texture", "sTex", 0)
 end
 
 
@@ -145,7 +131,7 @@ function LDOpenGLView:initializeObject(imageSize)
 	self.quad:addTriangle(vVerts[2], _, vTexture[2])
 	self.quad:endBatch()
 
-	print("GL state", NSOpenGL.getError(), self.quad)
+	print("GL state: " .. tostring(NSOpenGL.getError()))
 end
 
 
@@ -153,7 +139,6 @@ end
 
 function LDOpenGLView:drawRect(dirtyRect)
 	local frame = self:getFrame()
-	local location = NSOpenGL.getAttribLocation(self.program, "vVertex")
 	
 	NSOpenGL.clear("GL_COLOR_BUFFER_BIT", "GL_DEPTH_BUFFER_BIT", "GL_STENCIL_BUFFER_BIT")
 
@@ -165,12 +150,9 @@ function LDOpenGLView:drawRect(dirtyRect)
 	transPipeline.modelView = mvMatrix
 	transPipeline.projection = self.viewFrustum.projMatrix
 
-	local transformLocation = NSOpenGL.getUniformLocation(self.program, "mvpMatrix")
-	NSOpenGL.uniformMatrix(transformLocation, "GL_FALSE", transPipeline:getMVP())
-
-	local colorLocation = NSOpenGL.getUniformLocation(self.program, "vColor")
-	NSOpenGL.uniform(colorLocation, { 0, 1, 0, 1 })
-
+	OpenGLShaderManager.setUniformMatrix("texture", "mvpMatrix", transPipeline:getMVP())
+	OpenGLShaderManager.setUniform("texture", "vColor", { 0, 1, 0, 1 })
+	
 	if self.quad then
 		self.quad:draw()
 	end
@@ -281,10 +263,7 @@ end
 
 
 function LDOpenGLView:dealloc()
-	if self.program then
-		NSOpenGL.deleteProgram(self.program)
-		self.program = nil
-	end
+	OpenGLShaderManager.uninstallAllPrograms()
 
 	if self.texture then
 		NSOpenGL.deleteTextures(self.texture)
@@ -457,9 +436,8 @@ function VertArrayObject:genBuffer(name, verts, attribName)
 	self.buffers[name].stride = #verts[1]
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
 	NSOpenGL.bufferData("GL_ARRAY_BUFFER", "GL_FLOAT", verts, "GL_DYNAMIC_DRAW")
-	NSOpenGL.vertexAttribPointer(self.nextAttribPointer, self.buffers[name].stride, "GL_FLOAT", false)
 
-	self.buffers[name].location = NSOpenGL.getAttribLocation(self.program, attribName)
+	self.buffers[name].location = OpenGLShaderManager.getAttribLocation("texture", attribName)
 end
 
 

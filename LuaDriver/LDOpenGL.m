@@ -591,17 +591,13 @@ static int ld_opengl_getUniformLocation(lua_State* L)
 static int ld_opengl_uniformMatrix(lua_State* L)
 {
 	GLint loc = (GLint)luaL_checkinteger(L, 1);
-	const char* transposeName = luaL_checkstring(L, 2);
+	bool transpose = lua_toboolean(L, 2);
 	
 	lua_len(L, 3);
 	unsigned int size = lua_tounsigned(L, -1);
 	lua_pop(L, 1);
 	
 	int count = lua_gettop(L) - 2;
-	
-	GLenum transpose = GL_FALSE;
-	if (strcmp(transposeName, "GL_TRUE") == 0)
-		transpose = GL_TRUE;
 	
 	if (size == 16) {
 		GLfloat* matrix = malloc(sizeof(GLfloat) * 16 * count);
