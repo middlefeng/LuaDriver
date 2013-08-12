@@ -68,6 +68,13 @@ end
 
 function VertArrayObject:bindBufferToAttrib(name, progName, attribName)
 	local location = OpenGLShaderManager.getAttribLocation(progName, attribName)
+	local buffer = self.buffers[name]
+
+	-- do nothing for non-existent name
+	if location < 0 or (not buffer) then
+		return
+	end
+
 	NSOpenGL.bindBuffer("GL_ARRAY_BUFFER", self.buffers[name].handle)
 	NSOpenGL.enableVertexAttribArray(location);
 	NSOpenGL.vertexAttribPointer(location, self.buffers[name].stride, "GL_FLOAT",

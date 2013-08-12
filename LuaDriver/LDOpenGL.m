@@ -39,6 +39,7 @@ static int ld_opengl_bufferSubData(lua_State*);
 static int ld_opengl_createProgram(lua_State*);
 static int ld_opengl_deleteProgram(lua_State*);
 static int ld_opengl_linkProgram(lua_State*);
+static int ld_opengl_validateProgram(lua_State*);
 static int ld_opengl_useProgram(lua_State*);
 static int ld_opengl_createShader(lua_State*);
 static int ld_opengl_deleteShader(lua_State*);
@@ -90,6 +91,7 @@ static const luaL_Reg LDOpenGLFuncs[] = {
 	{ "createProgram", ld_opengl_createProgram },
 	{ "deleteProgram", ld_opengl_deleteProgram },
 	{ "linkProgram", ld_opengl_linkProgram },
+	{ "validateProgram", ld_opengl_validateProgram },
 	{ "useProgram", ld_opengl_useProgram },
 	{ "createShader", ld_opengl_createShader },
 	{ "deleteShader", ld_opengl_deleteShader },
@@ -465,6 +467,33 @@ static int ld_opengl_linkProgram(lua_State* L)
 	GLuint program = (GLuint)lua_tounsigned(L, 1);
 	lua_pop(L, 1);
 	glLinkProgram(program);
+	return 0;
+}
+
+
+
+
+static int ld_opengl_validateProgram(lua_State* L)
+{
+	GLuint program = (GLuint)lua_tounsigned(L, 1);
+	lua_pop(L, 1);
+	glValidateProgram(program);
+	
+	GLint validState = 0;
+	glGetProgramiv(program, GL_VALIDATE_STATUS, &validState);
+	
+	if (validState != GL_TRUE) {
+		GLint logLength = 0;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+		
+		char* log = malloc(sizeof(char) * (logLength + 1));
+		glGetProgramInfoLog(program, logLength, &validState, log);
+		
+		lua_pushstring(L, log);
+		free(log);
+		return 1;
+	}
+	
 	return 0;
 }
 

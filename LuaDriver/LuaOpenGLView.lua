@@ -21,11 +21,12 @@ local OpenGLFrustum = require "LuaOpenGLFrustum"
 local OpenGLShaderManager = require "LuaOpenGLShaderManager"
 local OpenGLTransPipeline = require "LuaOpenGLTransformPipeline"
 local VertArrayObject = require "LuaOpenGLVertexObject"
+local Batch = require "LuaOpenGLBatch"
 
 LDOpenGLView = {}
 
 local LDUtilities = {}
-local TriangleBatch = {}
+local TriangleBatch = Batch.Triangle
 
 
 
@@ -285,131 +286,6 @@ function LDUtilities.loadShaderSource(name)
 	local shaderFile = io.open(path, "r")
 	local src = shaderFile:read("*a")
 	return src
-end
-
-
-
-
--------------------------------------------------------------------------
-------------------             TriangleBatch           ------------------
--------------------------------------------------------------------------
-
-
-function TriangleBatch:__gc()
-	if self.vertObject then
-		NSOpenGL.deleteVertexArrays(self.vertObject)
-	end
-	NSOpenGL.deleteBuffers(self.indexBuffer)
-end
-
-
-
-function TriangleBatch:begin()
-	local r = {}
-	self.__index = TriangleBatch
-	setmetatable(r, TriangleBatch)
-
-	r.indexes = {}
-	r.verts = {}
-	r.normals = {}
-	r.texCoords = {}
-
-	return r
-end
-
-
-
-
-function TriangleBatch:addTriangle(verts, normals, texCoords)
-	local e = 0.0001
---	OpenGLMath.normalizeArray(normals)
-
-	for iVertex = 1, 3 do
-
-		local bVertExist = false
-
-		-- For existing one, add index only
-        for iMatch = 1, #self.verts do
-            if vectorClose(self.verts[iMatch], verts[iVertex], e) and
---             vectorClose(self.normals[iMatch], normals[iVertex], e) and
-        	   vectorClose(self.texCoords[iMatch], texCoords[iVertex], e) then
-                self.indexes[#self.indexes + 1] = { iMatch - 1 }
-                bVertExist = true
-                break
-            end
-        end
-
-        -- No match for this vertex, add to end of list
-        if not bVertExist then
-           	self.verts[#self.verts + 1] = verts[iVertex]
---          self.normals[#self.normals + 1] = normals[iVertex]
-	        self.texCoords[#self.texCoords + 1] = texCoords[iVertex]
-            self.indexes[#self.indexes + 1] = { #self.verts - 1 }
-        end
-    end
-end
-
-
-
-
-function TriangleBatch:endBatch()
-	self.vertObject = VertArrayObject:new()
-	self.vertObject.program = self.program
-
-	self.vertObject:genBuffer("vert", self.verts)
-	--self.vertObject:genBuffer("norm", self.normals)
-	self.vertObject:genBuffer("texC", self.texCoords)
-
-	self.indexBuffer = NSOpenGL.genBuffers(1)
-	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
-	NSOpenGL.bufferData("GL_ELEMENT_ARRAY_BUFFER", "GL_UNSIGNED_SHORT",
-						self.indexes, "GL_STATIC_DRAW")
-
-	self.vertObject:unbind()
-end
-
-
-
-
-function TriangleBatch:draw()
-	local progName = OpenGLShaderManager.currentProgramName
-
-	self.vertObject:bind()
-	self.vertObject:bindBufferToAttrib("vert", progName, "vVertex")
---	self.vertObject:bindBufferToAttrib("norm", progName, "vNorm")
-	self.vertObject:bindBufferToAttrib("texC", progName, "vTexture")
-
-	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)
-	NSOpenGL.drawElements("GL_TRIANGLES", #self.indexes, "GL_UNSIGNED_SHORT");
-end
-
-
-
-
--------------------------------------------------------------------------
-------------------              Math Tools             ------------------
--------------------------------------------------------------------------
-
-
-
-function close(a, b, e)
-	return math.abs(a - b) < e
-end
-
-
-
-function vectorClose(v1, v2, e)
-	if #v1 ~= #v2 then
-		return false
-	end
-
-	for i = 1, #v1 do
-		if not close(v1[i], v2[i], e) then
-			return false
-		end
-	end
-
-	return true
 end
 
 

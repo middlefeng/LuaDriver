@@ -44,6 +44,7 @@
 		2CCEDACA17962A4500B0D8E4 /* LuaTextView.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2CCEDAC917962A4500B0D8E4 /* LuaTextView.lua */; };
 		2CCF144E17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2CCF144D17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua */; };
 		2CD73F68179A5DA10049642E /* LDBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD73F67179A5DA10049642E /* LDBundle.m */; };
+		2CF2B76017B884C300E19648 /* LuaOpenGLBatch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2CF2B75F17B884C300E19648 /* LuaOpenGLBatch.lua */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +145,7 @@
 		2CCF144D17A0CF5A00477587 /* LuaOpenGLTransformPipeline.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLTransformPipeline.lua; sourceTree = "<group>"; };
 		2CD73F66179A5DA10049642E /* LDBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBundle.h; sourceTree = "<group>"; };
 		2CD73F67179A5DA10049642E /* LDBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDBundle.m; sourceTree = "<group>"; };
+		2CF2B75F17B884C300E19648 /* LuaOpenGLBatch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LuaOpenGLBatch.lua; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +258,7 @@
 				2C8489F6179985020018C689 /* LuaOpenGLView.lua */,
 				2CC4B8C217B4692F002C0B80 /* LuaOpenGLShaderManager.lua */,
 				2C06940D17B4BD2600E5CC56 /* LuaOpenGLVertexObject.lua */,
+				2CF2B75F17B884C300E19648 /* LuaOpenGLBatch.lua */,
 				2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */,
 				2CCF144717A0CECF00477587 /* Math */,
 			);
@@ -438,6 +441,7 @@
 				2C4E2D6717A13338001641A7 /* LuaOpenGLFrustum.lua in Resources */,
 				2CC4B8C317B4692F002C0B80 /* LuaOpenGLShaderManager.lua in Resources */,
 				2C06940E17B4BD2600E5CC56 /* LuaOpenGLVertexObject.lua in Resources */,
+				2CF2B76017B884C300E19648 /* LuaOpenGLBatch.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
