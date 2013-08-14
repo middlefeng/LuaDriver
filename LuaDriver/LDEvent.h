@@ -8,10 +8,6 @@
 
 
 
-#import <Foundation/Foundation.h>
-
-
-
 struct lua_State;
 
 

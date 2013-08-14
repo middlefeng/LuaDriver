@@ -19,20 +19,26 @@ function ShaderManager.loadShader(name, srcs)
 	local fragShader = NSOpenGL.createShader("GL_FRAGMENT_SHADER")
 
 	NSOpenGL.shaderSource(vertShader, srcs.vert)
-	NSOpenGL.compileShader(vertShader)
+	local vertLog = NSOpenGL.compileShader(vertShader)
 
 	NSOpenGL.shaderSource(fragShader, srcs.frag)
-	NSOpenGL.compileShader(fragShader)
+	local fragLog = NSOpenGL.compileShader(fragShader)
 	
 	local program = NSOpenGL.createProgram()
 	NSOpenGL.attachShader(program, vertShader)
 	NSOpenGL.attachShader(program, fragShader)
-	NSOpenGL.linkProgram(program)
+	local linkLog = NSOpenGL.linkProgram(program)
 	
 	NSOpenGL.deleteShader(vertShader)
 	NSOpenGL.deleteShader(fragShader)
 
 	ShaderManager.shaders[name] = program
+
+	if fragLog or vertLog or linkLog then
+		return { fragLog = fragLog,
+				 vertLog = vertLog,
+				 linkLog = linkLog }
+	end
 end
 
 

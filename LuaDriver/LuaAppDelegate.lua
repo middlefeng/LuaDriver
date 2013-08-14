@@ -11,7 +11,7 @@ function LDAppDelegate:applicationDidFinishLaunching()
 
 	window:setTitle("Lua OpenGL Driver")
 	window:makeKeyAndOrderFront(self)
-
+--[[
 	local screen = NSScreen.getMainScreen()
 	local screenFrame = screen:getFrame()
 
@@ -27,6 +27,7 @@ function LDAppDelegate:applicationDidFinishLaunching()
 	
 	openPanel:setAllowsMultipleSelection(false)
 	openPanel:beginSheetModalForWindow(window, completeFunc)
+]]--
 end
 
 

@@ -39,7 +39,7 @@ local TriangleBatch = Batch.Triangle
 function LDOpenGLView:prepareOpenGL()
 	self:initializeShaders()
 	
-	NSOpenGL.clearColor(0.7, 0.7, 0.7, 1.0)
+	NSOpenGL.clearColor(0.2, 0.2, 0.2, 1.0)
 	NSOpenGL.enable("GL_DEPTH_TEST")
 	
 	self.cameraFrame = OpenGLFrame:new()
@@ -50,7 +50,7 @@ function LDOpenGLView:prepareOpenGL()
 	--self.objectFrame:rotateWorld(-38.0 * 3.14 / 180, { x = 0, y = 1, z = 0 });
 	--self.objectFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
 	--self.cameraFrame:rotateWorld(30.0 * 3.14 / 180, { x = 0, y = 0, z = 1 });
-	--self:initializeObject()
+	self:initializeObject()
 
 	local frame = self:getFrame()
 	self:setScene(frame)
@@ -64,12 +64,32 @@ function LDOpenGLView:initializeShaders()
 		frag = LDUtilities.loadShaderSource("texture.frag"),
 	}
 	OpenGLShaderManager.loadShader("texture", shaderSrcs)
-	OpenGLShaderManager.useProgram("texture")
+--	OpenGLShaderManager.useProgram("texture")
+
+	local diffUseSrcs = {
+		vert = LDUtilities.loadShaderSource("diffuseLight.vert"),
+		frag = LDUtilities.loadShaderSource("diffuseLight.frag"),
+	}
+	local logs =
+		OpenGLShaderManager.loadShader("diffuseLight", diffUseSrcs)
+	if logs then
+		print(logs.vertLog, logs.fragLog, logs.linkLog)
+	end
+
+	OpenGLShaderManager.useProgram("diffuseLight")
+
+	local flatSrcs = {
+		vert = LDUtilities.loadShaderSource("flat.vert"),
+		frag = LDUtilities.loadShaderSource("flat.frag"),
+	}
+	OpenGLShaderManager.loadShader("flat", flatSrcs)
+--	OpenGLShaderManager.useProgram("flat")	
 end
 
 
 
 function LDOpenGLView:initializeTexture(image)
+--[[
 	self.texture = NSOpenGL.genTextures(1)
 	NSOpenGL.activeTexture(0)
 	NSOpenGL.bindTexture("GL_TEXTURE_2D", self.texture)
@@ -82,13 +102,14 @@ function LDOpenGLView:initializeTexture(image)
     NSOpenGL.texParameter("GL_TEXTURE_2D", "GL_TEXTURE_WRAP_T", "GL_CLAMP_TO_EDGE")
 
     OpenGLShaderManager.setTexture("texture", "sTex", 0)
+]]--
 end
 
 
 
 
 function LDOpenGLView:initializeObject(imageSize)
-	--[[
+
 	self.torus = TriangleBatch:begin()
 	self.torus.program = self.program
 	self.sphere = TriangleBatch:begin()
@@ -96,8 +117,8 @@ function LDOpenGLView:initializeObject(imageSize)
 	makeTorus(self.torus, 3.0, 0.75, 15, 15);
 	makeSphere(self.sphere, 3, 10, 20)
 	self.currentObject = self.torus
-	]]--
-	
+
+--[[
 	local aspectRatio = imageSize.width / imageSize.height
 
 	local aspectRatioW, aspectRatioH = 1, 1
@@ -130,6 +151,7 @@ function LDOpenGLView:initializeObject(imageSize)
 	self.quad:addTriangle(vVerts[1], _, vTexture[1])
 	self.quad:addTriangle(vVerts[2], _, vTexture[2])
 	self.quad:endBatch()
+]]--
 
 	print("GL state: " .. tostring(NSOpenGL.getError()))
 end
@@ -150,16 +172,24 @@ function LDOpenGLView:drawRect(dirtyRect)
 	transPipeline.modelView = mvMatrix
 	transPipeline.projection = self.viewFrustum.projMatrix
 
+--[[
 	OpenGLShaderManager.setUniformMatrix("texture", "mvpMatrix", transPipeline:getMVP())
 	OpenGLShaderManager.setUniform("texture", "vColor", { 0, 1, 0, 1 })
 	
 	if self.quad then
 		self.quad:draw()
 	end
-
-	--[[
-	self.currentObject:draw()
+]]--
 	
+	OpenGLShaderManager.setUniform("diffuseLight", "diffuseColor", { 1.0, 0.0, 1.0, 1.0 })
+	OpenGLShaderManager.setUniform("diffuseLight", "vLightPosition", { 0.0, 0.0, -100.0 })
+	OpenGLShaderManager.setUniformMatrix("diffuseLight", "mvpMatrix", transPipeline:getMVP())
+	OpenGLShaderManager.setUniformMatrix("diffuseLight", "mvMatrix", transPipeline.modelView)
+	OpenGLShaderManager.setUniformMatrix("diffuseLight", "normalMatrix", transPipeline:getNormalMatrix())
+
+	self.currentObject:draw()
+
+--[[	
 	NSOpenGL.polygonOffset(-1, -0.2)
 	NSOpenGL.enable("GL_LINE_SMOOTH")
 	NSOpenGL.enable("GL_BLEND")
@@ -176,7 +206,7 @@ function LDOpenGLView:drawRect(dirtyRect)
     NSOpenGL.lineWidth(1);
     NSOpenGL.disable("GL_BLEND");
     NSOpenGL.disable("GL_LINE_SMOOTH");
-    ]]--
+]]--
 end
 
 

@@ -9,16 +9,18 @@
 #import "LDOpenGL.h"
 #import "LDUtilities.h"
 
-#import "OpenGL/gl3.h"
-
 #import "lua.h"
 #import "lualib.h"
 #import "lauxlib.h"
+
+#include "OpenGL/gl3.h"
 
 
 static GLenum ld_opengl_name_to_enum(const char** names,
 									 const GLenum* enums,
 									 const char* name);
+static void ld_new_lua_string_from_info_log(struct lua_State* L,
+											GLuint program);
 
 
 
@@ -467,6 +469,14 @@ static int ld_opengl_linkProgram(lua_State* L)
 	GLuint program = (GLuint)lua_tounsigned(L, 1);
 	lua_pop(L, 1);
 	glLinkProgram(program);
+	
+	GLint linkStatus = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+	if (linkStatus != GL_TRUE) {
+		ld_new_lua_string_from_info_log(L, program);
+		return 1;
+	}
+	
 	return 0;
 }
 
@@ -483,14 +493,7 @@ static int ld_opengl_validateProgram(lua_State* L)
 	glGetProgramiv(program, GL_VALIDATE_STATUS, &validState);
 	
 	if (validState != GL_TRUE) {
-		GLint logLength = 0;
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
-		
-		char* log = malloc(sizeof(char) * (logLength + 1));
-		glGetProgramInfoLog(program, logLength, &validState, log);
-		
-		lua_pushstring(L, log);
-		free(log);
+		ld_new_lua_string_from_info_log(L, program);
 		return 1;
 	}
 	
@@ -640,6 +643,18 @@ static int ld_opengl_uniformMatrix(lua_State* L)
 		
 		glUniformMatrix4fv(loc, count, transpose, matrix);
 		free(matrix);
+	} else if (size == 9) {
+		GLfloat* matrix = malloc(sizeof(GLfloat) * 9 * count);
+		for (size_t i = 0; i < count; ++i) {
+			for (size_t j = 0; j < 9; ++j) {
+				lua_rawgeti(L, (int)(i + 3), (int)(j + 1));
+				matrix[i * 9 + j] = lua_tonumber(L, -1);
+				lua_pop(L, 1);
+			}
+		}
+		
+		glUniformMatrix3fv(loc, count, transpose, matrix);
+		free(matrix);
 	}
 	
 	lua_pop(L, lua_gettop(L));
@@ -680,6 +695,17 @@ static int ld_opengl_uniform(lua_State* L)
 			}
 		}
 		glUniform4fv(loc, count, value);
+		free(value);
+	} else if (size == 3) {
+		GLfloat* value = malloc(size * count * sizeof(GLfloat));
+		for (size_t i = 0; i < count; ++i) {
+			for (size_t j = 0; j < 3; ++j) {
+				lua_rawgeti(L, (int)(i + 2), (int)(j + 1));
+				value[i * 3 + j] = luaL_checknumber(L, -1);
+				lua_pop(L, 1);
+			}
+		}
+		glUniform3fv(loc, count, value);
 		free(value);
 	}
 	
@@ -1213,6 +1239,20 @@ static GLenum ld_opengl_name_to_enum(const char** names,
 }
 
 
+
+
+
+static void ld_new_lua_string_from_info_log(struct lua_State* L, GLuint program)
+{
+	GLint logLength = 0;
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+	
+	char* log = malloc(sizeof(char) * (logLength + 1));
+	glGetProgramInfoLog(program, logLength, &logLength, log);
+	
+	lua_pushstring(L, log);
+	free(log);
+}
 
 
 

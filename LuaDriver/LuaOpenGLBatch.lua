@@ -112,7 +112,7 @@ function TriangleBatch:draw()
 
 	self.vertObject:bind()
 	self.vertObject:bindBufferToAttrib("vert", progName, "vVertex")
-	self.vertObject:bindBufferToAttrib("norm", progName, "vNorm")
+	self.vertObject:bindBufferToAttrib("norm", progName, "vNormal")
 	self.vertObject:bindBufferToAttrib("texC", progName, "vTexture")
 
 	NSOpenGL.bindBuffer("GL_ELEMENT_ARRAY_BUFFER", self.indexBuffer)

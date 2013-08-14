@@ -28,6 +28,8 @@
 		2C5AB3B2179D2E6B004B8150 /* flat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C5AB3AF179D2CE7004B8150 /* flat.frag */; };
 		2C697C8D17A3AD0C004C79C6 /* LDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C697C8C17A3AD0C004C79C6 /* LDMenu.m */; };
 		2C6CECAA179CAF050084D4FD /* LDViewFuncs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6CECA9179CAF050084D4FD /* LDViewFuncs.m */; };
+		2C801EBD17B927A500C64CD3 /* diffuseLight.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2C801EB417B91F9100C64CD3 /* diffuseLight.vert */; };
+		2C801EBE17B927A500C64CD3 /* diffuseLight.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2C801EBB17B91FA000C64CD3 /* diffuseLight.frag */; };
 		2C8489F2179982C30018C689 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8489EF179982B40018C689 /* liblua.a */; };
 		2C8489F51799831B0018C689 /* LDOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8489F41799831B0018C689 /* LDOpenGLView.m */; };
 		2C8489F7179985020018C689 /* LuaOpenGLView.lua in Resources */ = {isa = PBXBuildFile; fileRef = 2C8489F6179985020018C689 /* LuaOpenGLView.lua */; };
@@ -121,6 +123,8 @@
 		2C697C8C17A3AD0C004C79C6 /* LDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDMenu.m; sourceTree = "<group>"; };
 		2C6CECA8179CAF050084D4FD /* LDViewFuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDViewFuncs.h; sourceTree = "<group>"; };
 		2C6CECA9179CAF050084D4FD /* LDViewFuncs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDViewFuncs.m; sourceTree = "<group>"; };
+		2C801EB417B91F9100C64CD3 /* diffuseLight.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = diffuseLight.vert; sourceTree = "<group>"; };
+		2C801EBB17B91FA000C64CD3 /* diffuseLight.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = diffuseLight.frag; sourceTree = "<group>"; };
 		2C8489E0179982B40018C689 /* lua.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = lua.xcodeproj; path = "../lua-5.2.2/project/lua.xcodeproj"; sourceTree = "<group>"; };
 		2C8489F31799831B0018C689 /* LDOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDOpenGLView.h; sourceTree = "<group>"; };
 		2C8489F41799831B0018C689 /* LDOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDOpenGLView.m; sourceTree = "<group>"; };
@@ -256,10 +260,10 @@
 				2C20E891178FE57500B53137 /* LuaMainWindow.lua */,
 				2CCEDAC917962A4500B0D8E4 /* LuaTextView.lua */,
 				2C8489F6179985020018C689 /* LuaOpenGLView.lua */,
+				2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */,
 				2CC4B8C217B4692F002C0B80 /* LuaOpenGLShaderManager.lua */,
 				2C06940D17B4BD2600E5CC56 /* LuaOpenGLVertexObject.lua */,
 				2CF2B75F17B884C300E19648 /* LuaOpenGLBatch.lua */,
-				2C20E893178FE9A100B53137 /* LuaAppDelegate.lua */,
 				2CCF144717A0CECF00477587 /* Math */,
 			);
 			name = Lua;
@@ -272,6 +276,8 @@
 				2C5AB3AF179D2CE7004B8150 /* flat.frag */,
 				2CAAF18917A89C1E00F39B1F /* texture.frag */,
 				2CAAF18A17A89C1E00F39B1F /* texture.vert */,
+				2C801EB417B91F9100C64CD3 /* diffuseLight.vert */,
+				2C801EBB17B91FA000C64CD3 /* diffuseLight.frag */,
 			);
 			name = Shaders;
 			sourceTree = "<group>";
@@ -424,6 +430,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C801EBD17B927A500C64CD3 /* diffuseLight.vert in Resources */,
+				2C801EBE17B927A500C64CD3 /* diffuseLight.frag in Resources */,
 				2CAAF19217A89D2700F39B1F /* texture.frag in Resources */,
 				2CAAF19317A89D2700F39B1F /* texture.vert in Resources */,
 				2C5AB3B1179D2E6B004B8150 /* flat.vert in Resources */,

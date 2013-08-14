@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Dong. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 
 
 struct lua_State;

@@ -16,8 +16,6 @@
 #import "lualib.h"
 #import "lauxlib.h"
 
-#import "OpenGL/gl3.h"
-
 
 
 @implementation LDOpenGLView
@@ -65,6 +63,7 @@ static const luaL_Reg LDOpenGLViewMetatable[] = {
 		_userDataRef = 0;
 		
 		NSOpenGLPixelFormatAttribute attributes [] = {
+			NSOpenGLPFAAccelerated,
 			NSOpenGLPFADoubleBuffer,
 			NSOpenGLPFADepthSize, 32,
 			NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
